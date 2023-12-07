@@ -24,11 +24,10 @@ public class AdminOrderController {
     private IOrderRepository iorderServicIOrderRepository;
 	  @GetMapping("")
 	    public String showInvoices(Model model) {
-		//  List<Order> order = iorderServicIOrderRepository.findAll();
-	    //    model.addAttribute("order", order);
-	     //   return "order/admin_order";
-		  model.addAttribute("orders", iorderServicIOrderRepository.findAll());
+		  List<Order> order = iorderServicIOrderRepository.findAll();
+	        model.addAttribute("order", order);
 	        return "order/admin_order";
+
 
 	    }
 }
