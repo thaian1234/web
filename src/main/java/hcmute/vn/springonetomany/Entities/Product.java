@@ -11,6 +11,8 @@ import org.springframework.data.annotation.CreatedDate;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -39,6 +41,8 @@ public class Product {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    @OneToMany(mappedBy = "product")
+    private Set<Variant> variants = new LinkedHashSet<>();
     @Lob
     @Nationalized
     @Column(name = "description")

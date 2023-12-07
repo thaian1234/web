@@ -11,25 +11,33 @@ import java.util.Optional;
 @Service
 public class CategoryService {
     @Autowired
-    ICategoryRepository repository;
+    ICategoryRepository categoryRepository;
 
-    public List<Category> listAll() {
-        return repository.findAll();
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
     }
 
     public void save(Category category) {
-        repository.save(category);
+        categoryRepository.save(category);
     }
 
+    public void deleteById(int id)
+    {
+    	categoryRepository.deleteById(id);
+    }
+    public Category findByName(String name)
+    {
+    	return categoryRepository.findByName(name);
+    }
     public Category findById(int id) throws Exception {
-        Optional<Category> result = repository.findById(id);
+        Optional<Category> result = categoryRepository.findById(id);
         if (result.isPresent()) {
             return result.get();
         }
         throw new Exception("Could not find category");
     }
     public int countProduct(int id) throws Exception {
-        Optional<Category> result = repository.findById(id);
+        Optional<Category> result = categoryRepository.findById(id);
         if (result.isPresent()) {
             return result.get().getProducts().toArray().length;
         }

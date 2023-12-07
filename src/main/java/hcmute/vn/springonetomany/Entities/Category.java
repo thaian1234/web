@@ -42,9 +42,9 @@ public class Category {
     }
 
 
-//    public Category(Integer id) {
-//        this.id = id;
-//    }
+    public Category(Integer id) {
+       this.id = id;
+    }
 
     public Category(String name) {
         this.name = name;

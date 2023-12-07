@@ -27,7 +27,7 @@ public class HomeController {
 
     @GetMapping({"**/home", "/"})
     public String viewHomePage(Model model) {
-        List<Category> listCategories = categoryService.listAll();
+        List<Category> listCategories = categoryService.findAll();
         List<Product> productList = productService.findAll();
 
         List<Category> sortedCategories = listCategories.stream()

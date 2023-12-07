@@ -8,6 +8,7 @@
 
 <head>
 	<title>Home Page</title>
+	<link rel="icon" href="https://example.com/path/to/your/favicon.ico" type="image/x-icon">
 </head>
 <body layout:fragment="content">
 	<!-- Navbar Start -->
@@ -35,41 +36,41 @@
 			</div>
 
 			<div class="col-lg-9">
-<!--				<nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">-->
-<!--					<a href="" class="text-decoration-none d-block d-lg-none">-->
-<!--						<h1 class="m-0 display-5 font-weight-semi-bold"><span-->
-<!--								class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>-->
-<!--					</a>-->
-<!--					<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">-->
-<!--						<span class="navbar-toggler-icon"></span>-->
-<!--					</button>-->
-<!--					<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">-->
-<!--						<div class="navbar-nav mr-auto py-0">-->
-<!--							<a th:href="@{/home}" class="nav-item nav-link active">Home</a>-->
-<!--							<a th:href="@{/products}" class="nav-item nav-link">Products</a>-->
-<!--							<a href="detail.html" class="nav-item nav-link">Shop Detail</a>-->
-<!--							<div class="nav-item dropdown">-->
-<!--								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>-->
-<!--								<div class="dropdown-menu rounded-0 m-0">-->
-<!--									<a href="cart.html" class="dropdown-item">Shopping Cart</a>-->
-<!--									<a href="checkout.html" class="dropdown-item">Checkout</a>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--							<a href="contact.html" class="nav-item nav-link">Contact</a>-->
-<!--						</div>-->
-<!--						<div class="navbar-nav ml-auto py-0">-->
-<!--							<div class="d-flex align-items-center" sec:authorize="isAuthenticated()">-->
-<!--								<p class="m-0">Welcome <span sec:authentication="principal.authorities"></span></p>-->
-<!--								<form th:action="@{/logout}" method="post" class="nav-item nav-link">-->
-<!--									<button type="submit" class="btn-outline-primary bg-transparent rounded-pill p-2">Logout</button>-->
-<!--&lt;!&ndash;									<a th:href="@{/logout}" class="nav-item nav-link bold">Logout</a>&ndash;&gt;-->
-<!--								</form>-->
-<!--							</div>-->
-<!--							<a th:href="@{/login}" sec:authorize="isAnonymous()" class="nav-item nav-link">Login</a>-->
-<!--							<a th:href="@{/register}" sec:authorize="isAnonymous()" class="nav-item nav-link">Register</a>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</nav>-->
+				<!--<nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+					<a href="" class="text-decoration-none d-block d-lg-none">
+						<h1 class="m-0 display-5 font-weight-semi-bold"><span
+								class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+					</a>
+					<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+						<div class="navbar-nav mr-auto py-0">
+							<a th:href="@{/home}" class="nav-item nav-link active">Home</a>
+							<a th:href="@{/products}" class="nav-item nav-link">Products</a>
+							<a href="detail.html" class="nav-item nav-link">Shop Detail</a>
+							<div class="nav-item dropdown">
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+								<div class="dropdown-menu rounded-0 m-0">
+									<a href="cart.html" class="dropdown-item">Shopping Cart</a>
+									<a href="checkout.html" class="dropdown-item">Checkout</a>
+								</div>
+							</div>
+							<a href="contact.html" class="nav-item nav-link">Contact</a>
+						</div>
+						<div class="navbar-nav ml-auto py-0">
+							<div class="d-flex align-items-center" sec:authorize="isAuthenticated()">
+								<p class="m-0">Welcome <span sec:authentication="principal.authorities"></span></p>
+								<form th:action="@{/logout}" method="post" class="nav-item nav-link">
+									<button type="submit" class="btn-outline-primary bg-transparent rounded-pill p-2">Logout</button>
+								<a th:href="@{/logout}" class="nav-item nav-link bold">Logout</a>
+								</form>
+							</div>
+							<a th:href="@{/login}" sec:authorize="isAnonymous()" class="nav-item nav-link">Login</a>
+							<a th:href="@{/register}" sec:authorize="isAnonymous()" class="nav-item nav-link">Register</a>
+						</div>
+					</div>
+				</nav>-->
 				<div id="header-carousel" class="carousel slide" data-ride="carousel">
 					<div class="carousel-inner">
 						<div class="carousel-item active" style="height: 410px;">
@@ -152,7 +153,7 @@
 					<div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
 						<p class="text-right" th:text="${category.getProducts().size()} + ' sản phẩm'"></p>
 						<a th:href="@{/products/category/{cateId}(cateId=${category.getId()},page=1)}" class="cat-img position-relative overflow-hidden mb-3">
-							<img class="img-fluid" th:src="@{/img/cat-2.jpg}" alt="">
+							<img class="img-fluid" th:src="@{/img/cat-2.jpg}" alt="Category">
 						</a>
 						<h5 class="font-weight-semi-bold m-0" th:text="${category.getName()}"></h5>
 					</div>
@@ -194,7 +195,7 @@
 	<!-- Products Start -->
 	<div class="container-fluid pt-5">
 		<div class="text-center mb-4">
-			<h2 class="section-title px-5"><span class="px-2">Trandy Products</span></h2>
+			<h2 class="section-title px-5"><span class="px-2">Trendy Products</span></h2>
 		</div>
 		<div class="row px-xl-5 pb-3">
 			<th:block th:each="product : ${sortedProducts}">
@@ -213,6 +214,8 @@
 							<a th:href="@{'/products/detail/' + ${product.id}}" class="btn btn-sm text-dark p-0"><i
 									class="fas fa-eye text-primary mr-1"></i>View
 								Detail</a>
+								<a th:href="@{'/addtowishlist/' + ${product.id}}" class="btn btn-sm text-dark p-0"><i
+									class="fas fa-heart text-primary mr-1"></i>Add to wishlist</a>
 							<a href="" class="btn btn-sm text-dark p-0"><i
 									class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
 						</div>
@@ -440,28 +443,28 @@
 			<div class="col">
 				<div class="owl-carousel vendor-carousel">
 					<div class="vendor-item border p-4">
-						<img src="../static/img/vendor-1.jpg" alt="">
+						<img src="../static/img/vendor-1.jpg" alt="Nothing">
 					</div>
 					<div class="vendor-item border p-4">
-						<img src="../static/img/vendor-2.jpg" alt="">
+						<img src="../static/img/vendor-2.jpg" alt="Nothing">
 					</div>
 					<div class="vendor-item border p-4">
-						<img src="../static/img/vendor-3.jpg" alt="">
+						<img src="../static/img/vendor-3.jpg" alt="Nothing">
 					</div>
 					<div class="vendor-item border p-4">
-						<img src="../static/img/vendor-4.jpg" alt="">
+						<img src="../static/img/vendor-4.jpg" alt="Nothing">
 					</div>
 					<div class="vendor-item border p-4">
-						<img src="../static/img/vendor-5.jpg" alt="">
+						<img src="../static/img/vendor-5.jpg" alt="Nothing">
 					</div>
 					<div class="vendor-item border p-4">
-						<img src="../static/img/vendor-6.jpg" alt="">
+						<img src="../static/img/vendor-6.jpg" alt="Nothing">
 					</div>
 					<div class="vendor-item border p-4">
-						<img src="../static/img/vendor-7.jpg" alt="">
+						<img src="../static/img/vendor-7.jpg" alt="Nothing">
 					</div>
 					<div class="vendor-item border p-4">
-						<img src="../static/img/vendor-8.jpg" alt="">
+						<img src="../static/img/vendor-8.jpg" alt="Nothing">
 					</div>
 				</div>
 			</div>

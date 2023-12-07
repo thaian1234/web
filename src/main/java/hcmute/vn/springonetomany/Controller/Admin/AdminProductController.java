@@ -33,7 +33,7 @@ public class AdminProductController {
 
     @GetMapping("/new")
     public String showNewProductForm(Model model) {
-        List<Category> listCategory = categoryService.listAll();
+        List<Category> listCategory = categoryService.findAll();
         model.addAttribute("product", new Product());
         model.addAttribute("listCategory", listCategory);
         return "product/product_form";
@@ -49,7 +49,7 @@ public class AdminProductController {
     public String showEditProductForm(@PathVariable("id") int id, Model model) {
         try {
             Product product = productService.findById(id);
-            List<Category> listCategory = categoryService.listAll();
+            List<Category> listCategory = categoryService.findAll();
             model.addAttribute("listCategory", listCategory);
             model.addAttribute("product", product);
             return "product/product_form";

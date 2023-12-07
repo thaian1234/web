@@ -23,12 +23,12 @@ public class ProductController {
     @Autowired
     private CategoryService categoryService;
 
-//    @GetMapping("**/products")
-//    public String listAllProduct(Model model) {
-//        List<Product> productList = productService.listAll();
-//        model.addAttribute("productList", productList);
-//        return "products";
-//    }
+    @GetMapping("**/products")
+    public String listAllProduct(Model model) {
+        List<Product> productList = productService.findAll();
+        model.addAttribute("productList", productList);
+        return "products";
+    }
 
 //    @GetMapping("/products")
 //    public String getFirstPage(Model model) {
