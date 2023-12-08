@@ -148,4 +148,11 @@ public class Order {
 		this.ship_id = ship_id;
 	}
 
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", create_at=" + create_at + ", name=" + name + ", status_payment=" + status_payment
+				+ ", total=" + total + ", user_address=" + user_address + ", payment_type_id=" + payment_type_id
+				+ ", voucher_order=" + voucher_order + ", user_id=" + user_id + ", ship_id=" + ship_id + "]";
+	}
+
 }
