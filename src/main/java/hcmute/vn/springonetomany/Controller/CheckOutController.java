@@ -3,9 +3,15 @@ package hcmute.vn.springonetomany.Controller;
 import hcmute.vn.springonetomany.Custom.CustomUser;
 import hcmute.vn.springonetomany.Custom.CustomUserDetails;
 import hcmute.vn.springonetomany.Custom.Oauth2.CustomOAuth2User;
+import hcmute.vn.springonetomany.Entities.Cart;
+import hcmute.vn.springonetomany.Entities.CartItem;
 import hcmute.vn.springonetomany.Entities.Category;
 import hcmute.vn.springonetomany.Entities.Product;
 import hcmute.vn.springonetomany.Entities.User;
+import hcmute.vn.springonetomany.Repository.IProductRepository;
+import hcmute.vn.springonetomany.Repository.IUserRepository;
+import hcmute.vn.springonetomany.Service.CartItemService;
+import hcmute.vn.springonetomany.Service.CartService;
 import hcmute.vn.springonetomany.Service.CategoryService;
 import hcmute.vn.springonetomany.Service.ProductService;
 import hcmute.vn.springonetomany.Service.UserService;
@@ -28,17 +34,30 @@ import java.util.stream.Collectors;
 
 @Controller
 public class CheckOutController {
-    @Autowired
-    private CategoryService categoryService;
-    @Autowired
-    private ProductService productService;
-
-    @Autowired
-    private UserService userService;
+	 @Autowired
+	    CartService cartService;
+	 @Autowired
+	    IUserRepository userRepository;
+	 @Autowired
+	    CartItemService cartItemService;
+	 @Autowired
+	    IProductRepository productRepository;
 
     @GetMapping("/checkout")
     public String viewHomePage(Model model, @AuthenticationPrincipal CustomUser loggedUser, HttpSession session) {
-       
+    	 User user = (User) session.getAttribute("user");
+         Cart cart = cartService.getCartByUserId(user.getId());
+//         Set<CartItem> cartItemList = cart.getCartItems();
+         List<CartItem> cartItemList = cartItemService.listCartItemByCartId(cart.getId());
+         cartService.recalculateCartTotal(cart.getId());
+         
+         model.addAttribute("cartItemList", cartItemList);
+         model.addAttribute("quantity",cartItemList.size());
+         model.addAttribute("total", cart.getPriceFormatted());
+         // Cập nhật user trong session
+         user = userRepository.findById(user.getId()).orElse(null);
+         session.setAttribute("user", user);
+
         return "checkout";
     }
 }
