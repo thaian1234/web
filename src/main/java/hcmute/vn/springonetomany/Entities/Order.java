@@ -17,9 +17,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-//@AllArgsConstructor
+
+@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,7 +84,7 @@ public class Order {
 
 	public void setStatus_payment(String status_payment) {
 		this.status_payment = status_payment;
-	}
+	} 
 
 	public String getTotal() {
 		return total;
@@ -133,26 +134,19 @@ public class Order {
 		this.ship_id = ship_id;
 	}
 
-	public Order(Integer id, String create_at, String name, String status_payment, String total, String user_address,
-			String payment_type_id, String voucher_order, String user_id, String ship_id) {
-		super();
-		this.id = id;
-		this.create_at = create_at;
-		this.name = name;
-		this.status_payment = status_payment;
-		this.total = total;
-		this.user_address = user_address;
-		this.payment_type_id = payment_type_id;
-		this.voucher_order = voucher_order;
-		this.user_id = user_id;
-		this.ship_id = ship_id;
-	}
-
-	@Override
-	public String toString() {
-		return "Order [id=" + id + ", create_at=" + create_at + ", name=" + name + ", status_payment=" + status_payment
-				+ ", total=" + total + ", user_address=" + user_address + ", payment_type_id=" + payment_type_id
-				+ ", voucher_order=" + voucher_order + ", user_id=" + user_id + ", ship_id=" + ship_id + "]";
-	}
+//	public Order(Integer id, String create_at, String name, String status_payment, String total, String user_address,
+//			String payment_type_id, String voucher_order, String user_id, String ship_id) {
+//		super();
+//		this.id = id;
+//		this.create_at = create_at;
+//		this.name = name;
+//		this.status_payment = status_payment;
+//		this.total = total;
+//		this.user_address = user_address;
+//		this.payment_type_id = payment_type_id;
+//		this.voucher_order = voucher_order;
+//		this.user_id = user_id;
+//		this.ship_id = ship_id;
+//	}
 
 }
