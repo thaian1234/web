@@ -9,7 +9,9 @@ import hcmute.vn.springonetomany.Service.ProductService;
 import hcmute.vn.springonetomany.Ultis.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -18,80 +20,105 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-
 @Controller
 public class ProductController {
-    @Autowired
-    private ProductService productService;
-    @Autowired
-    private IUserRepository userRepository;
+	@Autowired
+	private ProductService productService;
+	@Autowired
+	private IUserRepository userRepository;
 
-    @GetMapping("/products")
-    public String getOnePage(Model model,
-                             @RequestParam(required = false, defaultValue = "1") int page,
-                             HttpSession session) {
-        Page<Product> productPage = productService.findPage(page);
-        List<Product> productList = productPage.getContent();
-        int totalPages = productPage.getTotalPages();
-        long totalItems = productPage.getTotalElements();
+	@RequestMapping("/")
+	public String viewhomepage(Model model, HttpSession session) {
+		/* int currentPage = 1; */
+		/* Page<Product> page = productService.listAll(sortField,sortDir); */
+		/*
+		 * long totalsItems = page.getTotalElements(); int totalsPages =
+		 * page.getTotalPages();
+		 */
 
-        model.addAttribute("productList", productList);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("totalItems", totalItems);
+		/* List<Product> productList = page.getContent(); */
+		/*
+		 * model.addAttribute("currentPage", currentPage);
+		 * model.addAttribute("totalsItems", totalsItems);
+		 * model.addAttribute("totalsPages", totalsPages);
+		 * model.addAttribute("listProducts", productList);
+		 */
+		return getOnePage(model, 1, "name", "asc", session);
+	}
 
+	@GetMapping("/products")
+	public String getOnePage(Model model, @RequestParam(required = false, defaultValue = "1") int page,
+			@Param("sortField") String sortField, @Param("sortDir") String sortDir, HttpSession session) {
 
-        // Cập nhật user trong session
-        User user = (User) session.getAttribute("user");
-        user = userRepository.findById(user.getId()).orElse(null);
-        session.setAttribute("user", user);
+		/* Page<Product> productPage = productService.listAll( sortField,sortDir ); */
+		Page<Product> productPage = productService.findPage(page);
+		List<Product> productList = productPage.getContent();
+		int totalPages = productPage.getTotalPages();
+		long totalItems = productPage.getTotalElements();
 
-        return "product/products";
-    }
+		model.addAttribute("productList", productList);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("totalItems", totalItems);
+		/*
+		 * model.addAttribute("sortField", sortField); model.addAttribute("sortDir",
+		 * sortDir);
+		 */
 
-    @GetMapping(path = {"/search"})
-    public String searchProducts(Model model, @RequestParam(required = false, defaultValue = "") String keyword, @RequestParam int page) {
-        List<Product> productList = null;
+		// Cập nhật user trong session
+		User user = (User) session.getAttribute("user");
+		user = userRepository.findById(user.getId()).orElse(null);
+		session.setAttribute("user", user);
 
-        if (keyword != null) {
-            Page<Product> productPage = productService.searchProducts(keyword, page);
-            productList = productPage.getContent();
-            int totalPages = productPage.getTotalPages();
-            long totalItems = productPage.getTotalElements();
+		return "product/products";
+	}
 
-            model.addAttribute("productList", productList);
-            model.addAttribute("totalPages", totalPages);
-            model.addAttribute("totalItems", totalItems);
-            model.addAttribute("currentPage", page);
-        } else {
-            productService.findAll();
-        }
-        model.addAttribute("productList", productList);
-        return "product/products";
-    }
+	@GetMapping(path = { "/search" })
+	public String searchProducts(Model model, @RequestParam(required = false, defaultValue = "") String keyword,
+			@RequestParam int page) {
+		List<Product> productList = null;
 
-    @GetMapping({"/products/category/{id}"})
-    public String showProductsByCategoryId(@PathVariable("id") int id, @RequestParam int page, Model model) throws Exception {
-        Page<Product> productPage = productService.getProductsByCategory_Id(id, page);
-        List<Product> productList = productPage.getContent();
-        int totalPages = productPage.getTotalPages();
-        long totalItems = productPage.getTotalElements();
+		if (keyword != null) {
+			Page<Product> productPage = productService.searchProducts(keyword, page);
+			productList = productPage.getContent();
+			int totalPages = productPage.getTotalPages();
+			long totalItems = productPage.getTotalElements();
 
-        model.addAttribute("productList", productList);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("totalItems", totalItems);
-        model.addAttribute("currentPage", page);
-        return "product/products";
-    }
+			model.addAttribute("productList", productList);
+			model.addAttribute("totalPages", totalPages);
+			model.addAttribute("totalItems", totalItems);
+			model.addAttribute("currentPage", page);
+		} else {
+			productService.findAll();
+		}
+		model.addAttribute("productList", productList);
+		return "product/products";
+	}
 
-    @GetMapping("/products/detail/{id}")
-    public String showProductDetail(@PathVariable("id") int id, Model model) {
-        try {
-            Product product = productService.findById(id);
-            model.addAttribute("product", product);
-        } catch (Exception e) {
-            return "redirect:/products";
-        }
-        return "detail";
-    }
+	@GetMapping({ "/products/category/{id}" })
+	public String showProductsByCategoryId(@PathVariable("id") int id, @RequestParam int page, Model model)
+			throws Exception {
+		Page<Product> productPage = productService.getProductsByCategory_Id(id, page);
+		List<Product> productList = productPage.getContent();
+		int totalPages = productPage.getTotalPages();
+		long totalItems = productPage.getTotalElements();
+
+		model.addAttribute("productList", productList);
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("totalItems", totalItems);
+		model.addAttribute("currentPage", page);
+		return "product/products";
+	}
+
+	@GetMapping("/products/detail/{id}")
+	public String showProductDetail(@PathVariable("id") int id, Model model) {
+		try {
+			Product product = productService.findById(id);
+			model.addAttribute("product", product);
+		} catch (Exception e) {
+			return "redirect:/products";
+		}
+		return "detail";
+	}
+
 }

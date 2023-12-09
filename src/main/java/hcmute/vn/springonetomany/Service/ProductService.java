@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,5 +64,13 @@ public class ProductService {
         throw new Exception("Could not find product");
     }
 
-
+	public Page<Product> listAll(/* String sortField, String sortDir */) {
+		/*
+		 * Sort sort = Sort.by("name").ascending(); sort = sortDir.equals("asc") ?
+		 * sort.ascending() : sort.descending();
+		 */
+		Pageable pageable = PageRequest.of(0, 10);
+        return productRepository.findAll(pageable);
+	}
+    	
 }
