@@ -120,5 +120,35 @@ public class ProductController {
 		}
 		return "detail";
 	}
+	@GetMapping("/products/sort/price")
+	public String sortByPrice(Model model, @RequestParam(required = false, defaultValue = "1") int page) {
+	    Page<Product> productPage = productService.findByPriceOrderByPriceAsc(page);
+	    updateModelAttributes(model, productPage);
+	    return "product/products";
+	}
+
+	@GetMapping("/products/sort/name")
+	public String sortByName(Model model, @RequestParam(required = false, defaultValue = "1") int page) {
+	    Page<Product> productPage = productService.findByNameOrderByNameAsc(page);
+	    updateModelAttributes(model, productPage);
+	    return "product/products";
+	}
+
+	@GetMapping("/products/sort/rating")
+	public String sortByRating(Model model, @RequestParam(required = false, defaultValue = "1") int page) {
+	    Page<Product> productPage = productService.findByRatingOrderByRatingDesc(page);
+	    updateModelAttributes(model, productPage);
+	    return "product/products";
+	}
+
+	private void updateModelAttributes(Model model, Page<Product> productPage) {
+	    List<Product> productList = productPage.getContent();
+	    int totalPages = productPage.getTotalPages();
+	    long totalItems = productPage.getTotalElements();
+	    model.addAttribute("productList", productList);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("totalItems", totalItems);
+	    // Add other attributes as needed
+	}
 
 }
