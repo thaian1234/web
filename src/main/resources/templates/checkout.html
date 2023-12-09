@@ -168,7 +168,7 @@
     </div>
     <!-- Page Header End -->
 
-
+<form  th:action="@{/admin/products/save}" th:object="${product}" method="post" enctype="multipart/form-data">
     <!-- Checkout Start -->
     <div class="container-fluid pt-5">
         <div class="row px-xl-5">
@@ -452,7 +452,7 @@
         </div>
     </div>
     <!-- Checkout End -->
-
+</form>
 
     <!-- Footer Start -->
     <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
