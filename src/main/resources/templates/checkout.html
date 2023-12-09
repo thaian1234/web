@@ -177,50 +177,131 @@
                     <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <label>First Name</label>
-                            <input class="form-control" type="text" placeholder="Name">
+                            <label> Full Name</label>
+                            
+                            <!--value = "user.getFullName()"  th:value="${User.getFullName(Id)}"
+                            <input type="text" name="firstName" th:value="${session.user.getFullName()}" class="form-control">-->
+                            <input class="form-control" type="text" placeholder="Name"  th:value="${session.user.getFullName()}">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Last Name</label>
-                            <input class="form-control" type="text" placeholder="Doe">
+                            <label> id Name</label>
+                            
+                            <!--value = "user.getFullName()"  th:value="${User.getFullName(Id)}"
+                            <input type="text" name="firstName" th:value="${session.user.getFullName()}" class="form-control">-->
+                            <input class="form-control" type="text" placeholder="Name"  th:value="${session.user.getId()}">
                         </div>
+                        
                         <div class="col-md-6 form-group">
                             <label>E-mail</label>
-                            <input class="form-control" type="text" placeholder="example@email.com">
+                            <input class="form-control" type="text" placeholder="example@email.com" th:value="${session.user.getEmail()}">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Mobile No</label>
-                            <input class="form-control" type="text" placeholder="+123 456 789">
+                            <label>Phone number *</label>
+                            <input class="form-control" type="text" placeholder="Phone Number" th:value="${session.user.getPhone()}">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Address Line 1</label>
+                            <label>Street number</label>
+                            <input class="form-control" type="text" placeholder="1 Vo Van Ngan"> 
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Ward</label>
+                            <input class="form-control" type="text" placeholder=" Linh Chieu Ward"> 
+                        </div>
+                        <!--<div class="col-md-6 form-group">
+                            <label>Disstrict</label>
                             <input class="form-control" type="text" placeholder="123 Street">
+                        </div>-->
+                        <div class="col-md-6 form-group">
+                            <label>Disstrict</label>
+                            <input class="form-control" type="text" placeholder="Thu Duc Disstrict">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Address Line 2</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
+                            <label>Province</label>
+                            <input class="form-control" type="text" placeholder="Ho Chi Minh City">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Country</label>
                             <select class="custom-select">
-                                <option selected>United States</option>
-                                <option>Afghanistan</option>
-                                <option>Albania</option>
-                                <option>Algeria</option>
+                                <option selected>Viet Nam</option>
+                                 <option value="AF">Afghanistan</option>
+							    <option value="AL">Albania</option>
+							    <option value="DZ">Algeria</option>
+							    <option value="AD">Andorra</option>
+							    <option value="AO">Angola</option>
+							    <option value="AI">Anguilla</option>
+							    <option value="AG">Antigua and Barbuda</option>
+							    <option value="AR">Argentina</option>
+							    <option value="AM">Armenia</option>
+							    <option value="AW">Aruba</option>
+							    <option value="AU">Australia</option>
+							    <option value="AT">Austria</option>
+							    <option value="AZ">Azerbaijan</option>
+							    <option value="BS">Bahamas</option>
+							    <option value="BH">Bahrain</option>
+							    <option value="BD">Bangladesh</option>
+							    <option value="BB">Barbados</option>
+							    <option value="BY">Belarus</option>
+							    <option value="BE">Belgium</option>
+							    <option value="BZ">Belize</option>
+							    <option value="BJ">Benin</option>
+							    <option value="BM">Bermuda</option>
+							    <option value="BT">Bhutan</option>
+							    <option value="BO">Bolivia</option>
+							    <option value="BA">Bosnia and Herzegovina</option>
+							    <option value="BW">Botswana</option>
+							    <option value="BR">Brazil</option>
+							    <option value="VG">British Virgin Islands</option>
+							    <option value="BN">Brunei</option>
+							    <option value="BG">Bulgaria</option>
+							    <option value="BF">Burkina Faso</option>
+							    <option value="BI">Burundi</option>
+							    <option value="KH">Cambodia</option>
+							    <option value="CM">Cameroon</option>
+							    <option value="CA">Canada</option>
+							    <option value="CV">Cape Verde</option>
+							    <option value="KY">Cayman Islands</option>
+							    <option value="CF">Central African Republic</option>
+							    <option value="TD">Chad</option>
+							    <option value="CL">Chile</option>
+							    <option value="CN">China</option>
+							    <option value="CO">Colombia</option>
+							    <option value="KM">Comoros</option>
+							    <option value="CG">Congo - Brazzaville</option>
+							    <option value="CD">Congo - Kinshasa</option>
+							    <option value="CK">Cook Islands</option>
+							    <option value="CR">Costa Rica</option>
+							    <option value="HR">Croatia</option>
+							    <option value="CU">Cuba</option>
+							    <option value="CY">Cyprus</option>
+							    <option value="CZ">Czech Republic</option>
+							    <option value="DK">Denmark</option>
+							    <option value="DJ">Djibouti</option>
+							    <option value="DM">Dominica</option>
+							    <option value="DO">Dominican Republic</option>
+							    <option value="EC">Ecuador</option>
+							    <option value="EG">Egypt</option>
+							    <option value="SV">El Salvador</option>
+							    <option value="GQ">Equatorial Guinea</option>
+							    <option value="ER">Eritrea</option>
+							    <option value="EE">Estonia</option>
+							    <option value="ET">Ethiopia</option>
+							    <option value="FK">Falkland Islands</option>
+							    <option value="FO">Faroe Islands</option>
+							    <option value="FJ">Fiji</option>
+							    <option value="FI">Finland</option>
+							    <option value="FR">France</option>
+							    <option value="GF">French Guiana</option>
+							    <option value="PF">French Polynesia</option>
+							    <option value="GA">Gabon</option>
+							    <option value="GM">Gambia</option>
+							    <option value="GE">Georgia</option>
+							    <option value="DE">Germany</option>
+							    <option value="GH">Ghana</option>
+							    <option value="GI">Gibraltar</option>
                             </select>
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label>City</label>
-                            <input class="form-control" type="text" placeholder="New York">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>State</label>
-                            <input class="form-control" type="text" placeholder="New York">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>ZIP Code</label>
-                            <input class="form-control" type="text" placeholder="123">
-                        </div>
+                        
+						
                         <div class="col-md-12 form-group">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="newaccount">
@@ -359,8 +440,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="text-center">
+				<button type="submit" class="btn-primary rounded-pill px-4 py-2 text-uppercase">Save</button>
+			</div>
                     <div class="card-footer border-secondary bg-transparent">
                         <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
+                        
                     </div>
                 </div>
             </div>
