@@ -166,9 +166,9 @@
             </div>
         </div>
     </div>
-    <!-- Page Header End -->
+    <!-- Page Header End th:each="order : ${orders}"-->
 
-<form  th:action="@{/admin/products/save}" th:object="${product}" method="post" enctype="multipart/form-data">
+<form  th:action="@{/save}" th:object="${orders}" method="post" enctype="multipart/form-data">
     <!-- Checkout Start -->
     <div class="container-fluid pt-5">
         <div class="row px-xl-5">
@@ -177,11 +177,12 @@
                     <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <label> Full Name</label>
-                            
-                            <!--value = "user.getFullName()"  th:value="${User.getFullName(Id)}"
-                            <input type="text" name="firstName" th:value="${session.user.getFullName()}" class="form-control">-->
+							<!-- id orders -->
+							<input type="hidden" th:value="${cart.id}" th:field="*{id}">
+							
+                            <label> Full Name</label><!--th:field="*{name}"--> 
                             <input class="form-control" type="text" placeholder="Name"  th:value="${session.user.getFullName()}">
+                            <!--<input type="text" th:field="*{total}" -->>
                         </div>
                         <div class="col-md-6 form-group">
                             <label> id Name</label>
