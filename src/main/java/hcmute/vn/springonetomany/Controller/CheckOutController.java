@@ -7,6 +7,7 @@ import hcmute.vn.springonetomany.Entities.Cart;
 import hcmute.vn.springonetomany.Entities.CartItem;
 import hcmute.vn.springonetomany.Entities.Category;
 import hcmute.vn.springonetomany.Entities.Order;
+import hcmute.vn.springonetomany.Entities.OrderLines;
 import hcmute.vn.springonetomany.Entities.Product;
 import hcmute.vn.springonetomany.Entities.User;
 import hcmute.vn.springonetomany.Repository.IOrderRepository;
@@ -72,52 +73,56 @@ public class CheckOutController {
          // Cập nhật user trong session
          user = userRepository.findById(user.getId()).orElse(null);
          session.setAttribute("user", user);
-
+ 
         return "checkout";
     }
+    
+    
+    
+    @GetMapping("")
+    public String showOrder(Model model) {
+        //List<Order> orders  = orderService.listAll();
+        model.addAttribute("orders", new Order());
+        //model.addAttribute("OrderLines", new OrderLines());
+        return "checkout/order";
+    }
+    //sử lí post save
     @PostMapping("/save")
-    private String saveOrder(@Valid Order order,
-                               BindingResult result,
-                               @RequestParam(value = "image") MultipartFile multipartFile,
-                               @RequestParam(value = "cart_id", required = false) Integer id) throws Exception {
-        if (result.hasErrors()) {
-            return "checkout";
-        }
-        Cart cart = cartService.findCartById(id);
-        Order order1 =  new Order();
-//        OderSer
-//
-//        String fileName = id == null || (multipartFile != null && !multipartFile.isEmpty())
-//                ? StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()))
-//                : orderService.findById(id).getPhotos();
-//
-//        product.setPhotos(fileName);
-     // Lưu đối tượng Order mới
-//        Order savedOrder = orderService.saveOrder(order);
+    public String saveOrder(@RequestParam("id") int id,
+                              @RequestParam("price") double price,
+                              @RequestParam("quantity") int quantity,
+                              @RequestParam("productId") int productId,
+                              @RequestParam("orderId") int orderId,
+                              Model model) {
+        // Xử lý dữ liệu và lưu vào cơ sở dữ liệu 
+    	   OrderLines orderLines = new OrderLines();
+    	   Order order = new Order();
+    	    orderLines.setId(id);
+    	    orderLines.setPrice(price);
+    	    orderLines.setQuantity(quantity);
+    	    orderLines.getProductId().setId(productId);
+    	    orderLines.getOrderId().setId(orderId);
+
+    	   orderService.getNewOrder(order);
+        // Truyền dữ liệu vào Model để hiển thị trên trang kết quả
+        model.addAttribute("price", price);
+        model.addAttribute("quantity", quantity);
+
         return "redirect:/checkout";
     }
+
 //    @PostMapping("/save")
-//    private String saveProduct(@Valid Product product,
-//                               BindingResult result,
-//                               @RequestParam(value = "image") MultipartFile multipartFile,
-//                               @RequestParam(value = "id", required = false) Integer id) throws Exception {
+//    private String saveOrder(@Valid Order order,
+//                               BindingResult result,                              
+//                               @RequestParam(value = "cart_id", required = false) Integer id) throws Exception {
 //        if (result.hasErrors()) {
-//            return "product/product_form";
+//            return "checkout";
 //        }
-//
-//        String fileName = id == null || (multipartFile != null && !multipartFile.isEmpty())
-//                ? StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()))
-//                : productService.findById(id).getPhotos();
-//
-//        product.setPhotos(fileName);
-//        Product savedProduct = productService.getNewProduct(product);
-//
-//        if (multipartFile != null && !multipartFile.isEmpty()) {
-//            String uploadDir = "product_photos/" + savedProduct.getId();
-//            FileUploadUtil.deleteAllFiles(uploadDir);
-//            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-//        }
-//        return "redirect:/admin/products";
+//        Cart cart = cartService.findCartById(id);
+//        Order order1 =  new Order();
+//       Order saveOrder = orderService.getNewOrder(order);
+//        return "redirect:/checkout";
 //    }
+
     
 }

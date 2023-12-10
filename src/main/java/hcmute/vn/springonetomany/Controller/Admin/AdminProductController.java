@@ -38,7 +38,6 @@ public class AdminProductController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalItems", totalItems);
-
         return "product/admin_products";
     }
 
@@ -47,7 +46,7 @@ public class AdminProductController {
         List<Category> listCategory = categoryService.listAll();
         model.addAttribute("product", new Product());
         model.addAttribute("listCategory", listCategory);
-        return "product/product_form";
+        return "order/user_order_view";
     }
 
     @GetMapping("/delete/{id}")

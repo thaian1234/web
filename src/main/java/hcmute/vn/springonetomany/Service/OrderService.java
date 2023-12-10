@@ -1,5 +1,6 @@
 package hcmute.vn.springonetomany.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,67 +11,89 @@ import hcmute.vn.springonetomany.Entities.CartItem;
 import hcmute.vn.springonetomany.Entities.Order;
 import hcmute.vn.springonetomany.Entities.OrderLines;
 import hcmute.vn.springonetomany.Entities.Product;
+import hcmute.vn.springonetomany.Repository.ICartItemRepository;
+import hcmute.vn.springonetomany.Repository.ICartRepository;
 import hcmute.vn.springonetomany.Repository.IOrderLinesRepository;
 import hcmute.vn.springonetomany.Repository.IOrderRepository;
-//import hcmute.vn.springonetomany.Repository.OrderLinesRepository;
+import hcmute.vn.springonetomany.Repository.IProductRepository;
+import hcmute.vn.springonetomany.Repository.IUserRepository;
 
 @Service
 public class OrderService {
-	
-	
-//	@Autowired
-//    private IOrderRepository orderRepository;
+//	public List<Product> findAll() {
+//
+//        return productRepository.findAll();
+//    }
+	@Autowired
+	private IOrderRepository orderRepository;
+	@Autowired
+	ICartRepository cartRepository;
+	@Autowired
+	IUserRepository userRepository;
+	@Autowired
+	IProductRepository productRepository;
+	@Autowired
+	ICartItemRepository cartItemRepository;
+	@Autowired
+	CartItemService cartItemService;
+	@Autowired
+	IOrderLinesRepository OderLinesRepository;
+
+//    @Autowired 
+//    Orderlines
 //	
-//    public void save(Order order) {
-//    	orderRepository.save(order);
-//    }
-//    public Order getNewOrder(Order order) {
-//    	 return orderRepository.save(order);
-//    }
-//    public Order getOrderByCart(Cart cart) {
-//    	Order order = new Order();
-//    	OrderLines oderLines = new OrderLines();
-//    	for ( CartItem cartItem:cart.getCartItems()) {
-//    		
-//    		   //OrderLines.productId.setProductId() = cartItem.getTotal();
-//    		
-//    	}
-//    	return null;
-//    }
-//    public List<Order> getAllOrders() {
-//        return orderRepository.findAll();
-//    }
-//    
-    @Autowired
-    private IOrderRepository orderRepository;
+	public void save(Order order) {
+		orderRepository.save(order);
+	}
 
-    @Autowired
-    private IOrderLinesRepository orderLinesRepository;
+	public Order getNewOrder(Order order) {
+		return orderRepository.save(order);}
 
-    public void saveOrder(Order order, List<CartItem> cartItems) {
-        // Lưu thông tin đơn hàng
-        Order savedOrder = orderRepository.save(order);
-        System.out.println("Saved Order ID: " + savedOrder.getId());
-        // Lưu thông tin các sản phẩm trong đơn hàng vào bảng order_lines
-        for (CartItem cartItem : cartItems) {
-            Product product = cartItem.getProduct();
+	public OrderLines getNewOrderlines(OrderLines orderLines) {
+		return OderLinesRepository.save(orderLines);}
+		public Order getOrderByCart(Cart cart) {
+		    Order order = new Order();
+		    List<OrderLines> orderLinesList = new ArrayList<>();
 
-            OrderLines orderLines = new OrderLines();
-            orderLines.setOrder(savedOrder);
-            orderLines.setProduct(product);
-            orderLines.setPrice(product.getPrice());
-            orderLines.setQuantity(cartItem.getQuantity());
+		    for (CartItem cartItem : cart.getCartItems()) {
+		        OrderLines orderLines = new OrderLines();
+		        orderLines.setProductId(cartItem.getProduct());
+		        orderLines.setPrice(cartItem.getProduct().getPrice());
+		        orderLines.setQuantity(cartItem.getQuantity());
+		        orderLines.setOrderId(order);
+		        orderLinesList.add(orderLines);
+		    }
+		    order.setOrderLines(orderLinesList);
+		    return order;
+		}		
 
-            orderLinesRepository.save(orderLines);
-            System.out.println("Saved OrderLine ID: " + orderLines.getId());
-        }
-//        public List<Order> getAllOrders() {
-////          return orderRepository.findAll();
-//        }
-    }
-
+////	public Order getOrderByCart(Cart cart) {
+//
+////		Order order = new Order();
+////    	OrderLines orderLines = new OrderLines();
+//		List<OrderLines> orderLinesList = new ArrayList<>();
+//		for (CartItem cartItem : cart.getCartItems()) {
+//			OrderLines orderLines = new OrderLines();
+//			orderLines.setProductId(cartItem.getProduct());
+//			orderLines.setPrice(cartItem.getProduct().getPrice());
+//			orderLines.setQuantity(cartItem.getQuantity());
+//
+//			orderLinesList.add(orderLines);
+////    		   OrderLines.productId.setProductId() = cartItem.getTotal(); code mẫu
+////    	    OrderLines orderLines = new OrderLines();
+////    	    orderLines.setQuantity(this.getQuantity());
+////    	    orderLines.setPrice(this.product.getPrice());
+////    	    orderLines.setProductId(this.getProduct());
+////    	    orderLines.setOrderId(this.getCart().getOrder());
+//		}
+//		order.setOrderLines(orderLinesList);
+//		return order;
+//	}
+//
+////    public Product getNewProduct(Product product) {
+////        return productRepository.save(product);
+////    }
 	public List<Order> getAllOrders() {
-		// TODO Auto-generated method stub
-		return null;
-	}   
+		return orderRepository.findAll();
+	}
 }

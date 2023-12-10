@@ -56,7 +56,6 @@ public class HomeController {
 
         model.addAttribute("listCategories", listCategories);
         model.addAttribute("sortedCategories", sortedCategories);
-
         model.addAttribute("sortedProducts", sortedProducts);
         model.addAttribute("productList", productList);
         return "index";
