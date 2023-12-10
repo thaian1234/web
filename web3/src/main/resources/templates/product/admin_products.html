@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+n<!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -21,7 +21,8 @@
 			<div class="table-responsive mb-5">
 				<table class="table table-bordered text-center mb-0">
 					<thead class="bg-secondary text-dark">
-						<tr>
+						<!--Edit:-->
+						<tr> 
 							<th>Photo</th>
 							<th>
 								<a th:href="@{{baseUrl}(baseUrl=${baseUrl}, page=${#numbers.formatInteger(currentPage, 0)}, sortField='id', sortDir=${reverseSortDir})}">
@@ -72,7 +73,7 @@
 				</table>
 			</div>
 
-			<!--                    Page navigation-->
+			<!--   Edit                 Page navigation-->
 			<div class="container-fluid p-4" th:unless="${listProduct.isEmpty()}">
 				<nav aria-label="Page navigation" th:with="baseUrl=${#request.getRequestURI()}">
 					<ul class="pagination justify-content-center mb-3">
