@@ -64,28 +64,25 @@ public class ProductService {
         throw new Exception("Could not find product");
     }
 
-	public Page<Product> listAll(/* String sortField, String sortDir */) {
-		/*
-		 * Sort sort = Sort.by("name").ascending(); sort = sortDir.equals("asc") ?
-		 * sort.ascending() : sort.descending();
-		 */
+	public Page<Product> listAll() {
+
 		Pageable pageable = PageRequest.of(0, 10);
         return productRepository.findAll(pageable);
 	}
 
-	public Page<Product> findByPriceOrderByPriceAsc(int page) {
-        Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE, Sort.by("price").ascending());
-        return productRepository.findAll(pageable);
-	}
-
-	public Page<Product> findByNameOrderByNameAsc(int page) {
-	    Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE, Sort.by("name").ascending());
-	    return productRepository.findAll(pageable);
-	}
-
-	public Page<Product> findByRatingOrderByRatingDesc(int page) {
-		   Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE, Sort.by("rating").descending());
-	       return productRepository.findAll(pageable);
-	}
+	/*
+	 * public Page<Product> findByPriceOrderByPriceAsc(int page) { Pageable pageable
+	 * = PageRequest.of(page - 1, PAGE_SIZE, Sort.by("price").ascending()); return
+	 * productRepository.findAll(pageable); }
+	 * 
+	 * public Page<Product> findByNameOrderByNameAsc(int page) { Pageable pageable =
+	 * PageRequest.of(page - 1, PAGE_SIZE, Sort.by("name").ascending()); return
+	 * productRepository.findAll(pageable); }
+	 * 
+	 * public Page<Product> findByRatingOrderByRatingDesc(int page) { Pageable
+	 * pageable = PageRequest.of(page - 1, PAGE_SIZE,
+	 * Sort.by("rating").descending()); return productRepository.findAll(pageable);
+	 * }
+	 */
     	
 }
