@@ -47,4 +47,10 @@ public class CartItem {
     public void updateTotal(int newQuantity) {
         total = this.product.getPrice() * newQuantity;
     }
+    
+    //tét thôi
+	public void getItem() {
+				this.product.getId() ;
+		
+	}
 }

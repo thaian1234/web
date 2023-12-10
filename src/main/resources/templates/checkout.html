@@ -168,7 +168,7 @@
     </div>
     <!-- Page Header End th:each="order : ${orders}"-->
 
-<form  th:action="@{/save}" th:object="${orders}" method="post" enctype="multipart/form-data">
+<form  th:action="@{/save}" th:object="${orders}" method="post">
     <!-- Checkout Start -->
     <div class="container-fluid pt-5">
         <div class="row px-xl-5">
@@ -450,7 +450,7 @@
                     <div class="card-footer border-secondary bg-transparent">
 <!--                        <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
 -->          
-                  <a type="submit" th:href="@{/placeorder}" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</a>
+                  <a type="submit" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</a>
 
                     </div>
                 </div>

@@ -55,16 +55,17 @@ public class OrderService {
 	    order.setUser(user);
 
 	    List<OrderLines> orderLines = new ArrayList<>();
-	    for (CartItem item : cart.getCartItems()) {
-	        OrderLines line = new OrderLines();
+	    for (CartItem item : cart.getCartItems())
+	    {
+	        OrderLines line = new OrderLines();  
 	        line.setOrder(order);
-//	        line.setItem(item.getItem());
-	        line.setItem(item.getItem());
+	        line.setProduct(item.getProduct());
+	        line.setPrice(item.getTotal());
 	        line.setQuantity(item.getQuantity());
 	        orderLines.add(line);
 	    }
-
 	    order.setOrderLines(orderLines);
+	    orderRepository.save(order);
 	    return order;
 	}
 

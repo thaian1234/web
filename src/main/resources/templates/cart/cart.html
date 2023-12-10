@@ -84,14 +84,19 @@
 							<h5 class="font-weight-bold">Total</h5>
 							<h5 class="font-weight-bold" th:text="${total}"></h5>
 						</div>
-						<a th:href="@{/checkout}" class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</a>
+						
+						
+						
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- Cart End -->
-
+<form th:action="@{/checkout/save}" method="post">
+							<input name="cartId" type="hidden" th:value="${session.user.getCart().getId()}">
+							<button type="submit" class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
+						</form>
 </body>
 
 </html>

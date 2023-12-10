@@ -27,7 +27,7 @@ import lombok.Setter;
 @Table(name = "orders")
 public class Order {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -38,22 +38,3 @@ public class Order {
     private List<OrderLines> orderLines;	
     
 }
-	
-	
-//	 @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-//	    private List<OrderLines> orderLines;
-//	 
-//	    public void setOrderLines(List<OrderLines> orderLines) {
-//	        for (OrderLines orderLine : orderLines) {
-//	            orderLine.setOrder(this);
-//	        }
-//	        this.orderLines = orderLines;
-//	    }
-	    
-//	public void setOrderLines(List<OrderLines> orderLines) {
-//	    for (OrderLines orderLine : orderLines) {
-//	        orderLines.setOrderId(this);
-//	    }
-////	    this.OrderLines = orderLines;
-////	}
-//}

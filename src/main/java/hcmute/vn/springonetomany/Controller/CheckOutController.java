@@ -61,68 +61,36 @@ public class CheckOutController {
 	    private OrderService orderService;
     @GetMapping("/checkout")
     public String viewHomePage(Model model, @AuthenticationPrincipal CustomUser loggedUser, HttpSession session) {
-    	 User user = (User) session.getAttribute("user");
-         Cart cart = cartService.getCartByUserId(user.getId());
-//         Set<CartItem> cartItemList = cart.getCartItems();
-         List<CartItem> cartItemList = cartItemService.listCartItemByCartId(cart.getId());
-         cartService.recalculateCartTotal(cart.getId());
-         
-         model.addAttribute("cartItemList", cartItemList);
-         model.addAttribute("quantity",cartItemList.size());
-         model.addAttribute("total", cart.getPriceFormatted());
-         // Cập nhật user trong session
-         user = userRepository.findById(user.getId()).orElse(null);
-         session.setAttribute("user", user);
- 
-        return "checkout";
+//    	 User user = (User) session.getAttribute("user");
+//         Cart cart = cartService.getCartByUserId(user.getId());
+////         Set<CartItem> cartItemList = cart.getCartItems();
+//         List<CartItem> cartItemList = cartItemService.listCartItemByCartId(cart.getId());
+//         cartService.recalculateCartTotal(cart.getId());
+//         
+//         model.addAttribute("cartItemList", cartItemList);
+//         model.addAttribute("quantity",cartItemList.size());
+//         model.addAttribute("total", cart.getPriceFormatted());
+//         // Cập nhật user trong session
+//         user = userRepository.findById(user.getId()).orElse(null);
+//         session.setAttribute("user", user);
+// 
+        return "order/user_order_view";
     }
     
-    
-    
-    @GetMapping("")
-    public String showOrder(Model model) {
-        //List<Order> orders  = orderService.listAll();
-        model.addAttribute("orders", new Order());
-        //model.addAttribute("OrderLines", new OrderLines());
-        return "checkout/order";
-    }
-    //sử lí post save
-    @PostMapping("/save")
-    public String saveOrder(@RequestParam("id") int id,
-                              @RequestParam("price") double price,
-                              @RequestParam("quantity") int quantity,
-                              @RequestParam("productId") int productId,
-                              @RequestParam("orderId") int orderId,
-                              Model model) {
-        // Xử lý dữ liệu và lưu vào cơ sở dữ liệu 
-    	   OrderLines orderLines = new OrderLines();
-    	   Order order = new Order();
-    	    orderLines.setId(id);
-    	    orderLines.setPrice(price);
-    	    orderLines.setQuantity(quantity);
-    	    orderLines.getProductId().setId(productId);
-    	    orderLines.getOrderId().setId(orderId);
 
-    	   orderService.getNewOrder(order);
-        // Truyền dữ liệu vào Model để hiển thị trên trang kết quả
-        model.addAttribute("price", price);
-        model.addAttribute("quantity", quantity);
+    
+    @PostMapping("/checkout/save")
+    public String saveOrder(@RequestParam (value = "cartId" )int cartId,HttpSession session) throws Exception {
+    	
+    	// Lấy user
+        User user = (User) session.getAttribute("user");
+        Cart cart = cartService.findCartById(cartId);
+        
 
+    	   Order saveOrder = orderService.createOrderFromCart(user , cart);
         return "redirect:/checkout";
     }
 
-//    @PostMapping("/save")
-//    private String saveOrder(@Valid Order order,
-//                               BindingResult result,                              
-//                               @RequestParam(value = "cart_id", required = false) Integer id) throws Exception {
-//        if (result.hasErrors()) {
-//            return "checkout";
-//        }
-//        Cart cart = cartService.findCartById(id);
-//        Order order1 =  new Order();
-//       Order saveOrder = orderService.getNewOrder(order);
-//        return "redirect:/checkout";
-//    }
 
     
 }

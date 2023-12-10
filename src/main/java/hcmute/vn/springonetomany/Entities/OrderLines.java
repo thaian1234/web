@@ -41,24 +41,22 @@ public class OrderLines {
 //	private Order orderId;
 	
 	  @Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 
 	    @ManyToOne
 	    @JoinColumn(name = "order_id")
 	    private Order order;
 	    
-	@OneToMany
+	    @ManyToOne
 	@JoinColumn(name = "product_id", referencedColumnName = "id")
-	private Product productId;
+	private Product product;
 
     @Column(name = "price")
     private Double price;
     
 	@Column(name = "quantity")
 	private Integer quantity;
-	@OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<OrderLines> orderLines = new LinkedHashSet<>();
 //	private List<OrderLines> orderLines;
 //	public void setOrderLines(List<OrderLines> orderLines) {
 //	    this.orderLines = orderLines;
