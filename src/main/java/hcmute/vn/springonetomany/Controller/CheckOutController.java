@@ -61,19 +61,19 @@ public class CheckOutController {
 	    private OrderService orderService;
     @GetMapping("/checkout")
     public String viewHomePage(Model model, @AuthenticationPrincipal CustomUser loggedUser, HttpSession session) {
-//    	 User user = (User) session.getAttribute("user");
-//         Cart cart = cartService.getCartByUserId(user.getId());
-////         Set<CartItem> cartItemList = cart.getCartItems();
-//         List<CartItem> cartItemList = cartItemService.listCartItemByCartId(cart.getId());
-//         cartService.recalculateCartTotal(cart.getId());
-//         
-//         model.addAttribute("cartItemList", cartItemList);
-//         model.addAttribute("quantity",cartItemList.size());
-//         model.addAttribute("total", cart.getPriceFormatted());
-//         // Cập nhật user trong session
-//         user = userRepository.findById(user.getId()).orElse(null);
-//         session.setAttribute("user", user);
-// 
+    	 User user = (User) session.getAttribute("user");
+         Cart cart = cartService.getCartByUserId(user.getId());
+//         Set<CartItem> cartItemList = cart.getCartItems();
+         List<CartItem> cartItemList = cartItemService.listCartItemByCartId(cart.getId());
+         cartService.recalculateCartTotal(cart.getId());
+         
+         model.addAttribute("cartItemList", cartItemList);
+         model.addAttribute("quantity",cartItemList.size());
+         model.addAttribute("total", cart.getPriceFormatted());
+         // Cập nhật user trong session
+         user = userRepository.findById(user.getId()).orElse(null);
+         session.setAttribute("user", user);
+ 
         return "checkout";
     }
     
