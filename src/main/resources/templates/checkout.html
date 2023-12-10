@@ -178,8 +178,7 @@
                     <div class="row">
                         <div class="col-md-6 form-group">
 							<!-- id orders -->
-<!--							<input type="hidden" th:value="${cart.id}" th:field="*{id}">
--->							
+						<!--<input type="hidden" th:field="*{orders.user.cart.cartItem.getId()}">-->					
                             <label> Full Name</label><!--th:field="*{name}"--> 
                             <input class="form-control" type="text" placeholder="Name"  th:value="${session.user.getFullName()}">
                             <!--<input type="text" th:field="*{total}" -->>
@@ -446,12 +445,12 @@
                         </div>
                     </div>
                     <div class="text-center">
-				<button type="submit" class="btn-primary rounded-pill px-4 py-2 text-uppercase">Save</button>
+<!--				<button type="submit" th:href="@{/placeorder}" class="btn-primary rounded-pill px-4 py-2 text-uppercase">Save</button>-->
 			</div>
                     <div class="card-footer border-secondary bg-transparent">
 <!--                        <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
 -->          
-                  <a th:href="@{/placeorder}" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</a>
+                  <a type="submit" th:href="@{/placeorder}" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</a>
 
                     </div>
                 </div>
