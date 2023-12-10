@@ -29,12 +29,13 @@ public class OrderLines {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "order_id")
-	private Product orderId;
-	
-	@ManyToOne
-	@JoinColumn(name = "product_id", referencedColumnName = "id")
-	private Product productId;
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product;
+
 
     @Column(name = "price")
     private Double price;
@@ -50,21 +51,21 @@ public class OrderLines {
 		this.id = id;
 	}
 
-	public Product getOrderId() {
-		return orderId;
-	}
+	public Order getOrder() {
+        return order;
+    }
 
-	public void setOrderId(Product orderId) {
-		this.orderId = orderId;
-	}
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
-	public Product getProductId() {
-		return productId;
-	}
+    public Product getProduct() {
+        return product;
+    }
 
-	public void setProductId(Product productId) {
-		this.productId = productId;
-	}
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
 	public Double getPrice() {
 		return price;

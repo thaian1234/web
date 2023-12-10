@@ -33,5 +33,8 @@ public class Order {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
-	private int userId;
+    //@Column(name = "user_id")
+    private User userid;
+
+	//private int userId;
 }

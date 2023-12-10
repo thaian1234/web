@@ -28,37 +28,32 @@ import lombok.Setter;
 @Entity
 @Table(name = "address_order")
 public class AddressOrder {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)	
-	@Column(name = "id", nullable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
-	
+
     @OneToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order orderId;
-	
-	
+
     @Nationalized
-    @Column(name = "Street_numer")
+    @Column(name = "street_number")
     private String streetNumber;
-    
-	@Nationalized
+
+    @Nationalized
     @Column(name = "ward")
     private String ward;
-	
-	@Nationalized
-    @Column(name = "disstrict")
-    private String disstrict;
-	
+
+    @Nationalized
+    @Column(name = "district")
+    private String district; 
+
     @Nationalized
     @Column(name = "city")
     private String city;
-    
+
     @Nationalized
     @Column(name = "country")
     private String country;
-
-
-
-
 }
