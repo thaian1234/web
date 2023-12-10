@@ -27,21 +27,17 @@ import lombok.Setter;
 @Table(name = "orders")
 public class Order {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-	private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	@Column(name = "create_at")
-	private Date createAt;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
-	private User userId;
-
-	public void setOrderLines(List<OrderLines> orderLinesList) {
-		
-		
-	}
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderLines> orderLines;	
+    
+}
 	
 	
 //	 @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -58,6 +54,6 @@ public class Order {
 //	    for (OrderLines orderLine : orderLines) {
 //	        orderLines.setOrderId(this);
 //	    }
-//	    this.OrderLines = orderLines;
-//	}
-}
+////	    this.OrderLines = orderLines;
+////	}
+//}

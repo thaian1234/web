@@ -28,18 +28,26 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "order_lines2")
+@Table(name = "order_lines")
 public class OrderLines {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-	private Integer id;
-
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "order_id", referencedColumnName = "id")
-	private Order orderId;
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Column(name = "id", nullable = false)
+//	private Integer id;
+//
+//	@OneToMany(fetch = FetchType.EAGER)
+//	@JoinColumn(name = "order_id", referencedColumnName = "id")
+//	private Order orderId;
 	
+	  @Id
+	    @GeneratedValue(strategy = GenerationType.AUTO)
+	    private Long id;
+
+	    @ManyToOne
+	    @JoinColumn(name = "order_id")
+	    private Order order;
+	    
 	@OneToMany
 	@JoinColumn(name = "product_id", referencedColumnName = "id")
 	private Product productId;

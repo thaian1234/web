@@ -11,6 +11,7 @@ import hcmute.vn.springonetomany.Entities.CartItem;
 import hcmute.vn.springonetomany.Entities.Order;
 import hcmute.vn.springonetomany.Entities.OrderLines;
 import hcmute.vn.springonetomany.Entities.Product;
+import hcmute.vn.springonetomany.Entities.User;
 import hcmute.vn.springonetomany.Repository.ICartItemRepository;
 import hcmute.vn.springonetomany.Repository.ICartRepository;
 import hcmute.vn.springonetomany.Repository.IOrderLinesRepository;
@@ -48,24 +49,42 @@ public class OrderService {
 
 	public Order getNewOrder(Order order) {
 		return orderRepository.save(order);}
+	
+	public Order createOrderFromCart(User user, Cart cart) {
+	    Order order = new Order();
+	    order.setUser(user);
 
-	public OrderLines getNewOrderlines(OrderLines orderLines) {
-		return OderLinesRepository.save(orderLines);}
-		public Order getOrderByCart(Cart cart) {
-		    Order order = new Order();
-		    List<OrderLines> orderLinesList = new ArrayList<>();
+	    List<OrderLines> orderLines = new ArrayList<>();
+	    for (CartItem item : cart.getCartItems()) {
+	        OrderLines line = new OrderLines();
+	        line.setOrder(order);
+//	        line.setItem(item.getItem());
+	        line.setItem(item.getItem());
+	        line.setQuantity(item.getQuantity());
+	        orderLines.add(line);
+	    }
 
-		    for (CartItem cartItem : cart.getCartItems()) {
-		        OrderLines orderLines = new OrderLines();
-		        orderLines.setProductId(cartItem.getProduct());
-		        orderLines.setPrice(cartItem.getProduct().getPrice());
-		        orderLines.setQuantity(cartItem.getQuantity());
-		        orderLines.setOrderId(order);
-		        orderLinesList.add(orderLines);
-		    }
-		    order.setOrderLines(orderLinesList);
-		    return order;
-		}		
+	    order.setOrderLines(orderLines);
+	    return order;
+	}
+
+//	public OrderLines getNewOrderlines(OrderLines orderLines) {
+//		return OderLinesRepository.save(orderLines);}
+//		public Order getOrderByCart(Cart cart) {
+//		    Order order = new Order();
+//		    List<OrderLines> orderLinesList = new ArrayList<>();
+//
+//		    for (CartItem cartItem : cart.getCartItems()) {
+//		        OrderLines orderLines = new OrderLines();
+//		        orderLines.setProductId(cartItem.getProduct());
+//		        orderLines.setPrice(cartItem.getProduct().getPrice());
+//		        orderLines.setQuantity(cartItem.getQuantity());
+//		        orderLines.setOrderId(order);
+//		        orderLinesList.add(orderLines);
+//		    }
+//		    order.setOrderLines(orderLinesList);
+//		    return order;
+//		}		
 
 ////	public Order getOrderByCart(Cart cart) {
 //
