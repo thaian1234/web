@@ -73,7 +73,6 @@ public class AdminVoucherController {
     	String fileName = id == null || (multipartFile != null && !multipartFile.isEmpty())
                 ? StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()))
                 : voucherService.findById(id).getPhotos();
-    	
     	if (id != null)
     		voucher.setCreatedAt(voucherService.findById(id).getCreatedAt());
         voucher.setPhotos(fileName);

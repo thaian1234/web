@@ -119,14 +119,10 @@
 									</a>
 								</li>
 								<li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item" th:classappend="${i == currentPage ? 'active' : ''}">
-<!--									<a th:href="@{/vouchers/category/{cateid}/{page}(cateid=${voucherList[0].getCategory().id},page=${i})}" th:if="${#strings.contains(#request.getRequestURI(), '/category/')}" th:text="${i}" class="page-link"></a>-->
-<!--									<a th:if="${param.keyword}" th:href="@{/vouchers/search/{page}(page=${i},keyword=${param.keyword})}" th:text="${i}" class="page-link"></a>-->
-<!--									<a th:if="${param.keyword == null && #strings.contains(#request.getRequestURI(), '/category/') == false}" th:href="@{'/vouchers/' + ${i}}" th:text="${i}" class="page-link"></a>-->
+
 									<a th:href="@{{baseUrl}(baseUrl=${baseUrl}, page=${i}, keyword=${param.keyword})}" th:text="${i}" class="page-link"></a>
 							    </li>
-<!--								<li class="page-item active"><a class="page-link" href="#">1</a></li>-->
-<!--								<li class="page-item"><a class="page-link" href="#">2</a></li>-->
-<!--								<li class="page-item"><a class="page-link" href="#">3</a></li>-->
+
 								<li class="page-item" th:classappend="${currentPage == totalPages ? 'disabled' : ''}">
 									<a class="page-link" th:href="@{{baseUrl}(baseUrl=${baseUrl}, page=${#numbers.formatInteger(currentPage + 1, 0)}, keyword=${param.keyword})}" >
 										<span aria-hidden="true">&raquo;</span>
