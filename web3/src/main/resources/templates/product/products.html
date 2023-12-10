@@ -157,30 +157,70 @@
 						</div>
 					</th:block>
 
-					<!--Edit:                    Page navigation-->
+					
+					
+					<!--                    Page navigation-->
 					<div class="col-12 pb-1" th:unless="${productList.isEmpty()}">
+						<div>
+							&nbsp;
+							</div>
+						<div>
+								Total Items: [[${totalItems}]] - Page [[${currentPage}]] of [[${totalPages}]]
+								&nbsp;
+								<!--<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+									<a th:if"${i != currentPage}" th:href="@{'/page/' + &{i}}">[[${i}]]</a> &nbsp;&nbsp;
+									<span th:unless="${i != currentPage}" th:href="@{'/page/' + &{i}}">[[${i}]]</span> 
+									&nbsp;&nbsp;
+									</span>-->
+						</div>
+					
 						<nav aria-label="Page navigation" th:with="baseUrl=${#request.getRequestURI()}">
-							<ul class="pagination justify-content-center mb-3">
-								<li class="page-item" th:classappend="${currentPage - 1 == 0 ? 'disabled' : ''}">
-									<a class="page-link"
-									   th:href="@{{baseUrl}(baseUrl=${baseUrl}, page=${#numbers.formatInteger(currentPage - 1, 0)}, keyword=${param.keyword}, sortField=${param.sortField}, sortDir=${param.sortDir})}">
-										<span aria-hidden="true">&laquo;</span>
-										<span class="sr-only">Previous</span>
-									</a>
-								</li>
-								<li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"
-								    th:classappend="${i == currentPage ? 'active' : ''}">
-									<a th:href="@{{baseUrl}(baseUrl=${baseUrl}, page=${i}, keyword=${param.keyword}, sortField=${param.sortField}, sortDir=${param.sortDir})}"
-									   th:text="${i}" class="page-link"></a>
-								</li>
-								<li class="page-item" th:classappend="${currentPage == totalPages ? 'disabled' : ''}">
-									<a class="page-link"
-									   th:href="@{{baseUrl}(baseUrl=${baseUrl}, page=${#numbers.formatInteger(currentPage + 1, 0)}, keyword=${param.keyword}, sortField=${param.sortField}, sortDir=${param.sortDir})}">
-										<span aria-hidden="true">&raquo;</span>
-										<span class="sr-only">Next</span>
-									</a>
-								</li>
-							</ul>
+						    <style>
+						
+						    </style>
+						
+						    <ul class="pagination justify-content-center mb-3">
+						        &nbsp;
+						        <li th:if="${currentPage > 1}" class="page-item">
+						            <a class="page-link"
+						               th:href="@{{baseUrl}(baseUrl=${baseUrl}, page=1, keyword=${param.keyword})}">First</a>
+						        </li>
+						        <li th:unless="${currentPage > 1}" class="page-item disabled">
+						            <span class="page-link">First</span>
+						        </li>
+						        &nbsp;&nbsp;
+						        <li class="page-item" th:classappend="${currentPage - 1 == 0 ? 'disabled' : ''}">
+						            <a class="page-link"
+						               th:href="@{{baseUrl}(baseUrl=${baseUrl}, page=${#numbers.formatInteger(currentPage - 1, 0)}, keyword=${param.keyword}, sortField=${param.sortField}, sortDir=${param.sortDir})}">
+						                <span aria-hidden="true">&laquo;</span>
+						                <span class="sr-only">Previous</span>
+						            </a>
+						        </li>
+						
+						        <li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item"
+						            th:classappend="${i == currentPage ? 'active' : ''}">
+						            <a class="page-link"
+						               th:href="@{{baseUrl}(baseUrl=${baseUrl}, page=${i}, keyword=${param.keyword}, sortField=${param.sortField}, sortDir=${param.sortDir})}" th:text="${i}"></a>
+						        </li>
+						
+						        <li class="page-item" th:classappend="${currentPage == totalPages ? 'disabled' : ''}">
+						            <a class="page-link"
+						               th:href="@{{baseUrl}(baseUrl=${baseUrl}, page=${#numbers.formatInteger(currentPage + 1, 0)}, keyword=${param.keyword}, sortField=${param.sortField}, sortDir=${param.sortDir})}">
+						                <span aria-hidden="true">&raquo;</span>
+						                <span class="sr-only">Next</span>
+						            </a>
+						        </li>
+						
+						        &nbsp;
+						        <li th:if="${currentPage < totalPages}" class="page-item">
+						            <a class="page-link"
+						               th:href="@{{baseUrl}(baseUrl=${baseUrl}, page=${totalPages}, keyword=${param.keyword})}">Last</a>
+						        </li>
+						        <li th:if="${currentPage == totalPages}" class="page-item disabled">
+						            <span class="page-link">Last</span>
+						        </li>
+						        &nbsp;
+						    </ul>
 						</nav>
 					</div>
 				</div>

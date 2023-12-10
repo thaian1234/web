@@ -458,20 +458,20 @@
     <script src="js/main.js"></script>
     
     <script>
-    document.getElementById('placeOrderBtn').addEventListener('click', function () {
-        var paymentMethod = document.querySelector('input[name="payment"]:checked');
-
-        if (paymentMethod) {
-            if (paymentMethod.id === 'paypal') {
-                window.location.href = '/paypal';
-            } else if (paymentMethod.id === 'banktransfer') {
-                window.location.href = '/qr';
-            }
-        } else {
-            alert('Please select a payment method before placing the order.');
-        }
-    });
-</script>
+	    document.getElementById('placeOrderBtn').addEventListener('click', function () {
+	        var paymentMethod = document.querySelector('input[name="payment"]:checked');
+	
+	        if (paymentMethod) {
+	            if (paymentMethod.id === 'paypal') {
+	                window.location.href = '/paypal';
+	            } else if (paymentMethod.id === 'banktransfer') {
+	                window.location.href = '/qr';
+	            }
+	        } else {
+	            alert('Please select a payment method before placing the order.');
+	        }
+	    });
+	</script>
     
 </body>
 
