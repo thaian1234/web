@@ -336,33 +336,33 @@
 		    </div>
 		</div>
                 <div class="card border-secondary mb-5">
-                    <div class="card-header bg-secondary border-0">
-                        <h4 class="font-weight-semi-bold m-0">Payment</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" name="payment" id="paypal">
-                                <label class="custom-control-label" for="paypal">Paypal</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" name="payment" id="directcheck">
-                                <label class="custom-control-label" for="directcheck">Momo</label>
-                            </div>
-                        </div>
-                        <div class="">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
-                                <label class="custom-control-label" for="banktransfer">QRCode</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer border-secondary bg-transparent">
-                        <a th:href = "@{/qr}" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</a>
-                    </div>
-                </div>
+				    <div class="card-header bg-secondary border-0">
+				        <h4 class="font-weight-semi-bold m-0">Payment</h4>
+				    </div>
+				    <div class="card-body">
+				        <div class="form-group">
+				            <div class="custom-control custom-radio">
+				                <input type="radio" class="custom-control-input" name="payment" id="paypal">
+				                <label class="custom-control-label" for="paypal">Paypal</label>
+				            </div>
+				        </div>
+				        <div class="form-group">
+				            <div class="custom-control custom-radio">
+				                <input type="radio" class="custom-control-input" name="payment" id="directcheck">
+				                <label class="custom-control-label" for="directcheck">Momo</label>
+				            </div>
+				        </div>
+				        <div class="">
+				            <div class="custom-control custom-radio">
+				                <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
+				                <label class="custom-control-label" for="banktransfer">QRCode</label>
+				            </div>
+				        </div>
+				    </div>
+				    <div class="card-footer border-secondary bg-transparent">
+				        <a href="#" id="placeOrderBtn" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</a>
+				    </div>
+				</div>
             </div>
         </div>
     </div>
@@ -456,6 +456,22 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    
+    <script>
+    document.getElementById('placeOrderBtn').addEventListener('click', function () {
+        var paymentMethod = document.querySelector('input[name="payment"]:checked');
+
+        if (paymentMethod) {
+            if (paymentMethod.id === 'paypal') {
+                window.location.href = '/paypal';
+            } else if (paymentMethod.id === 'banktransfer') {
+                window.location.href = '/qr';
+            }
+        } else {
+            alert('Please select a payment method before placing the order.');
+        }
+    });
+</script>
     
 </body>
 
