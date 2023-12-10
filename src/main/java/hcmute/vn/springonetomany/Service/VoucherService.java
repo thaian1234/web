@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import hcmute.vn.springonetomany.Entities.Product;
@@ -63,6 +65,16 @@ public class VoucherService {
 	public Page<Voucher> getVoucherNotOwed(User user, Pageable pageable) {
 		return voucherRepo.getVouchersNotOwned(user, pageable);
 	}
+	
+	//edit
+	int PAGE_SIZE = 2;
+	public Page<Voucher> findPage(int pageNumber, String sortField, String sortDir) {
+    	Sort sort = Sort.by(sortField).ascending();
+    	sort = sortDir.equals("asc")? sort.ascending() : sort.descending();
+    	
+        Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE, sort);
+        return voucherRepo.findAll(pageable);
+    }
 	
 //	public List<Voucher> getVoucherOwned(User user) {
 //		return voucherRepo.getVouchersOwned(user);

@@ -30,7 +30,9 @@ public class AdminVoucherController {
 	private VoucherService voucherService;
 	private int PAGE_SIZE = 2;
 	@GetMapping("")
-	public String showVouchersPage(Model model, @RequestParam(required = false, defaultValue = "1") int page) {
+	public String showVouchersPage(Model model, @RequestParam(required = false, defaultValue = "1") int page, 
+			@RequestParam(required = false, defaultValue = "name") String sortField, 
+            @RequestParam(required = false, defaultValue = "asc") String sortDir) {
         Pageable pageable = PageRequest.of(page - 1, PAGE_SIZE);
 		Page<Voucher> listVoucher = voucherService.findAll(pageable);
 		

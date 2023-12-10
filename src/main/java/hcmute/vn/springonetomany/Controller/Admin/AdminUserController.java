@@ -2,7 +2,6 @@ package hcmute.vn.springonetomany.Controller.Admin;
 
 import hcmute.vn.springonetomany.Entities.Rating;
 import hcmute.vn.springonetomany.Entities.RatingImage;
-import hcmute.vn.springonetomany.Entities.Product;
 import hcmute.vn.springonetomany.Entities.Role;
 import hcmute.vn.springonetomany.Entities.User;
 import hcmute.vn.springonetomany.Entities.Voucher;
@@ -35,18 +34,15 @@ public class AdminUserController {
     RatingService ratingService;
     @Autowired
     RatingImageService ratingImageService;
-
+    
     VoucherService voucherService;
     @Autowired
     IRoleRepository roleRepository;
 
     @GetMapping("")
-    public String showUsersPage(Model model,
-                                @RequestParam(required = false, defaultValue = "1") int page,
-                                @RequestParam(required = false, defaultValue = "createdAt") String fieldName,
-                                @RequestParam(required = false, defaultValue = "asc") String sortDir) {
+    public String showUsersPage(Model model, @RequestParam(required = false, defaultValue = "1") int page) {
 //        List<User> listUser = userService.listAll();
-        Page<User> listUser = userService.findPage(page, fieldName, sortDir);
+        Page<User> listUser = userService.findPage(page);
         int totalPages = listUser.getTotalPages();
         long totalItems = listUser.getTotalElements();
 
@@ -100,12 +96,8 @@ public class AdminUserController {
     public String saveUser(@Valid User user,
                            BindingResult result,
                            @RequestParam(value = "id", required = false) Long id,
-                           @RequestParam(value = "image") MultipartFile multipartFile,
-                           Model model) throws IOException {
+                           @RequestParam(value = "image") MultipartFile multipartFile ) throws IOException {
         if (result.hasErrors()) {
-            List<Role> listRole = roleRepository.findAll();
-            model.addAttribute("roles", listRole);
-
             return "user/user_form";
         }
 
@@ -120,28 +112,5 @@ public class AdminUserController {
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         }
         return "redirect:/admin/users";
-    }
-
-    @GetMapping(path = {"/search"})
-    public String searchProducts(Model model,
-                                 @RequestParam(required = false, defaultValue = "") String keyword,
-                                 @RequestParam int page) {
-        List<User> userList = null;
-
-        if (keyword != null) {
-            Page<User> userPage = userService.searchUserByKeyword(keyword, page);
-            userList = userPage.getContent();
-            int totalPages = userPage.getTotalPages();
-            long totalItems = userPage.getTotalElements();
-
-            model.addAttribute("listUser", userList);
-            model.addAttribute("totalPages", totalPages);
-            model.addAttribute("totalItems", totalItems);
-            model.addAttribute("currentPage", page);
-        } else {
-            userService.listAll();
-        }
-        model.addAttribute("listUser", userList);
-        return "user/admin_users";
     }
 }

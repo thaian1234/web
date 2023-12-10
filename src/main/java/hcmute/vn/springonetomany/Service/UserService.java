@@ -1,6 +1,9 @@
 package hcmute.vn.springonetomany.Service;
 
-import hcmute.vn.springonetomany.Entities.*;
+import hcmute.vn.springonetomany.Entities.Cart;
+import hcmute.vn.springonetomany.Entities.Role;
+import hcmute.vn.springonetomany.Entities.User;
+import hcmute.vn.springonetomany.Entities.WishList;
 import hcmute.vn.springonetomany.Enum.AuthProvider;
 import hcmute.vn.springonetomany.Repository.IRoleRepository;
 import hcmute.vn.springonetomany.Repository.IUserRepository;
@@ -8,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,7 +36,7 @@ public class UserService {
     @Autowired
     CartService cartService;
 
-    int PAGE_SIZE = 2;
+    int PAGE_SIZE = 5;
 
     public void registerDefaultUser(User user) {
         user.setCreatedAt(new Timestamp(System.currentTimeMillis()));
@@ -60,10 +62,8 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public Page<User> findPage(int pageNumber, String fieldName, String sortDir) {
-        Sort sort = Sort.by(fieldName).descending();
-        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-        Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE, sort);
+    public Page<User> findPage(int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE);
         return userRepo.findAll(pageable);
     }
 
@@ -154,10 +154,5 @@ public class UserService {
     public void updateAuthenticationType(String username, String oauth2ClientName) {
         AuthProvider authType = AuthProvider.valueOf(oauth2ClientName.toUpperCase());
         userRepo.updateAuthenticationProvider(username, authType);
-    }
-
-    public Page<User> searchUserByKeyword(String keyword, int pageNumber) {
-        Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE);
-        return userRepo.getUserByKeyword(keyword, pageable);
     }
 }

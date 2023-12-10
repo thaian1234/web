@@ -1,7 +1,6 @@
 package hcmute.vn.springonetomany.Controller;
 
 import hcmute.vn.springonetomany.Entities.User;
-import hcmute.vn.springonetomany.Service.EmailService;
 import hcmute.vn.springonetomany.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,8 +15,6 @@ import javax.validation.Valid;
 public class LoginController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private EmailService emailService;
 
     @GetMapping("/login")
     private String showLoginForm() {
@@ -38,7 +35,6 @@ public class LoginController {
         }
         try {
             userService.registerDefaultUser(user);
-            emailService.sendRegisterMail(user);
         } catch (Exception e) {
             if (userService.existsUserByEmail(user.getEmail())) {
                 return "redirect:/register?existsEmail";
