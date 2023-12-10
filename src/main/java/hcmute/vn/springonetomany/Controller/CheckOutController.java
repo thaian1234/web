@@ -74,7 +74,7 @@ public class CheckOutController {
 //         user = userRepository.findById(user.getId()).orElse(null);
 //         session.setAttribute("user", user);
 // 
-        return "order/user_order_view";
+        return "checkout";
     }
     
 
