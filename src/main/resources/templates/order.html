@@ -16,7 +16,7 @@
 	</div>-->
 	<!-- Order Start onclick="window.print();" -->
 
-<!-- Start Form Bill-->
+  <!-- Start Form Bill-->
 <div class="col-lg-8 mx-auto">
     <div class="card border-secondary mb-5" id = "bill">
         <div class="card-header bg-secondary border-0 text-center">
@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Thymeleaf loop through cartItemList -->
+                    <!-- Thymelleaf loop through cartItemList -->
                     <tr th:each="cartItem, cartItemIndex : ${cartItemList}">
                         <td class="text-center vertical-middle" th:text="${cartItemIndex.count}"></td>
                         <td th:text="${cartItem.product.name}"></td>
@@ -78,7 +78,7 @@
 </script>
 
 
-<!--<script>
+<script>
     function printDiv(divId) {
         var printContents = document.getElementById(divId).innerHTML;
         var originalContents = document.body.innerHTML;
@@ -107,7 +107,7 @@
 
     return formattedDate;
 }</script>
--->
+
 </body>
 
 </html>

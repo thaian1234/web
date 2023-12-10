@@ -173,7 +173,7 @@
 	
     <!-- Checkout Start -->
     <div class="container-fluid pt-5">
-        <div class="row px-xl-5">
+          <div class="row justify-content-center px-xl-5"> <!-- Thêm class justify-content-center để căn giữa theo chiều ngang -->
             <div class="col-lg-8">
                 <div class="mb-4">
                     <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
@@ -183,16 +183,9 @@
 						<!--<input type="hidden" th:field="*{orders.user.cart.cartItem.getId()}">-->					
                             <label> Full Name</label><!--th:field="*{name}"--> 
                             <input class="form-control" type="text" placeholder="Name"  th:value="${session.user.getFullName()}">
-                            <!--<input type="text" th:field="*{total}" -->>
+                            <!--<input type="text" th:field="*{total}" -->
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label> id Name</label>
-                            
-                            <!--value = "user.getFullName()"  th:value="${User.getFullName(Id)}"
-                            <input type="text" name="firstName" th:value="${session.user.getFullName()}" class="form-control">-->
-                            <input class="form-control" type="text" placeholder="Name"  th:value="${session.user.getId()}">
-                        </div>
-                        
+                    
                         <div class="col-md-6 form-group">
                             <label>E-mail</label>
                             <input class="form-control" type="text" placeholder="example@email.com" th:value="${session.user.getEmail()}">
@@ -304,78 +297,16 @@
                         </div>
                         
 						
-                        <div class="col-md-12 form-group">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="newaccount">
-                                <label class="custom-control-label" for="newaccount">Create an account</label>
-                            </div>
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="shipto">
-                                <label class="custom-control-label" for="shipto"  data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
-                <div class="collapse mb-4" id="shipping-address">
-                    <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label>First Name</label>
-                            <input class="form-control" type="text" placeholder="John">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Last Name</label>
-                            <input class="form-control" type="text" placeholder="Doe">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>E-mail</label>
-                            <input class="form-control" type="text" placeholder="example@email.com">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Mobile No</label>
-                            <input class="form-control" type="text" placeholder="+123 456 789">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 1</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 2</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Country</label>
-                            <select class="custom-select">
-                                <option selected>United States</option>
-                                <option>Afghanistan</option>
-                                <option>Albania</option>
-                                <option>Algeria</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>City</label>
-                            <input class="form-control" type="text" placeholder="New York">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>State</label>
-                            <input class="form-control" type="text" placeholder="New York">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>ZIP Code</label>
-                            <input class="form-control" type="text" placeholder="123">
-                        </div>
-                    </div>
-                </div>
-            </div>
+                
 <!-- Start Form Order Total Checkout-->
-<div class="col-lg-8">
-    <div class="card border-secondary mb-5">
-        <div class="card-header bg-secondary border-0">
-            <h4 class="font-weight-semi-bold m-10">Order Total Checkout</h4>
-        </div>
-        <div class="card-body">
+<div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-10">Order Total Checkout</h4>
+                </div>
+                <div class="card-body">
             <table class="table">
                 <thead>
                     <tr>
@@ -398,14 +329,13 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-footer border-secondary bg-transparent">
-            <div class="d-flex justify-content-between mt-2">
-                <h5 class="font-weight-bold">Total</h5>
-                <h5 class="font-weight-bold" th:text="${total}"></h5>
+                <div class="card-footer border-secondary bg-transparent">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5 class="font-weight-bold">Total</h5>
+                        <h5 class="font-weight-bold" th:text="${total}"></h5>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
 <!-- End Form Order Total Checkout-->
 
 
@@ -434,18 +364,12 @@
                         </div>
                     </div>
                     <div class="text-center">
-<!--				<button type="submit" th:href="@{/placeorder}" class="btn-primary rounded-pill px-4 py-2 text-uppercase">Save</button>-->
-			</div>
-                    <div class="card-footer border-secondary bg-transparent">
-<!--                        <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
--->          
-                  <a th:href="@{/placeorder}" class ="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</a>
-
-                    </div>
-                </div>
+                <a class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</a>
+                <a th:href="@{/placeorder}" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">View Bill</a>
             </div>
         </div>
     </div>
+</div>
     <!-- Checkout End -->
 </form>
 

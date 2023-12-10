@@ -69,50 +69,6 @@ public class OrderService {
 	    return order;
 	}
 
-//	public OrderLines getNewOrderlines(OrderLines orderLines) {
-//		return OderLinesRepository.save(orderLines);}
-//		public Order getOrderByCart(Cart cart) {
-//		    Order order = new Order();
-//		    List<OrderLines> orderLinesList = new ArrayList<>();
-//
-//		    for (CartItem cartItem : cart.getCartItems()) {
-//		        OrderLines orderLines = new OrderLines();
-//		        orderLines.setProductId(cartItem.getProduct());
-//		        orderLines.setPrice(cartItem.getProduct().getPrice());
-//		        orderLines.setQuantity(cartItem.getQuantity());
-//		        orderLines.setOrderId(order);
-//		        orderLinesList.add(orderLines);
-//		    }
-//		    order.setOrderLines(orderLinesList);
-//		    return order;
-//		}		
-
-////	public Order getOrderByCart(Cart cart) {
-//
-////		Order order = new Order();
-////    	OrderLines orderLines = new OrderLines();
-//		List<OrderLines> orderLinesList = new ArrayList<>();
-//		for (CartItem cartItem : cart.getCartItems()) {
-//			OrderLines orderLines = new OrderLines();
-//			orderLines.setProductId(cartItem.getProduct());
-//			orderLines.setPrice(cartItem.getProduct().getPrice());
-//			orderLines.setQuantity(cartItem.getQuantity());
-//
-//			orderLinesList.add(orderLines);
-////    		   OrderLines.productId.setProductId() = cartItem.getTotal(); code mẫu
-////    	    OrderLines orderLines = new OrderLines();
-////    	    orderLines.setQuantity(this.getQuantity());
-////    	    orderLines.setPrice(this.product.getPrice());
-////    	    orderLines.setProductId(this.getProduct());
-////    	    orderLines.setOrderId(this.getCart().getOrder());
-//		}
-//		order.setOrderLines(orderLinesList);
-//		return order;
-//	}
-//
-////    public Product getNewProduct(Product product) {
-////        return productRepository.save(product);
-////    }
 	public List<Order> getAllOrders() {
 		return orderRepository.findAll();
 	}
