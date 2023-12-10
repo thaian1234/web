@@ -20,6 +20,7 @@
 <div class="col-lg-8 mx-auto">
     <div class="card border-secondary mb-5" id = "bill">
         <div class="card-header bg-secondary border-0 text-center">
+			<br><br><br><br><br>
             <h4 class="font-weight-semi-bold m-10">Bill</h4>
         </div>
         <div class="card-body">
@@ -51,10 +52,10 @@
                 <h5 class="font-weight-bold" th:text="${total}"></h5>
             </div>
         </div>
-        <div onclick="printDiv('bill')" class="card-footer border-secondary bg-transparent">       
+
+    </div>        <div onclick="printDiv('bill')" class="card-footer border-secondary bg-transparent">       
                   <a th:href="@{/placeorder}" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Print Bill</a>
              </div>
-    </div>
 </div>
 
 <!-- End Form Bill-->
