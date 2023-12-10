@@ -19,7 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 
 @Controller
@@ -98,18 +102,44 @@ public class ProductController {
 		try {
 			Product product = productService.findById(id);
 			model.addAttribute("product", product);
+			Optional<Category> optionalCategory  = categoryService.getCategory(product.getCategory().getId());
+			 if (optionalCategory.isPresent()) {
+				 Category currentCategory = optionalCategory.get();
+				 Set<Product> categoryProducts = currentCategory.getProducts();
+				 List<Product> categoryProductList = new ArrayList<>(categoryProducts);
+				 categoryProductList.remove(product);
+				 int maxProductsCount = Math.min(6, categoryProductList.size());
+				 List<Product> relevantProducts = categoryProductList.subList(0, maxProductsCount);
+				 model.addAttribute("relevantProducts", relevantProducts);
+			 }
+			 else {
+				 return "redirect:/products";
+			 }
 			/*
-			 * List<Category> relevantCategories=
-			 * categoryService.getCategoryExceptsThisCategory(product.getCategory());
-			 * List<Product> relevantProducts = new ArrayList<>();
+			 * if (!relevantCategories.isEmpty()) {
+			 * relevantCategories.remove(product.getCategory()); }
+			 */
+//			relevantCategories.remove(product.getCategory());
+
+			/*
+			 * Random random = new Random(); Category randomCategory =
+			 * relevantCategories.get(random.nextInt(relevantCategories.size()));
+			 * Set<Product> categoryProducts=randomCategory.getProducts(); List<Product>
+			 * categoryProductList = new ArrayList<>(categoryProducts);
+			 * categoryProductList.remove(product);
+			 * //Collections.shuffle(categoryProductList);
 			 * 
-			 * for (Category category : relevantCategories) { //List<Product>
-			 * categoryProducts = category.getProducts();
-			 * //relevantProducts.addAll(categoryProducts); }
 			 * 
+			 * List<Product> relevantProducts = new ArrayList<>(); List<Product>
+			 * categoryProductList = new ArrayList<>(categoryProducts); int
+			 * randomProductsCount = Math.min(5, categoryProducts.size()); for (int i = 0; i
+			 * < randomProductsCount; i++) {
+			 * relevantProducts.add(categoryProductList.get(random.nextInt(categoryProducts.
+			 * size()))); }
 			 * 
-			 * relevantProduct.(relevantCategories.get(0).getProducts());
-			 * model.addAttribute("relevantCategories", relevantCategories);
+			 * int randomProductsCount = Math.min(5, categoryProductList.size());
+			 * List<Product> relevantProducts = categoryProductList.subList(0,
+			 * randomProductsCount);
 			 */
 		} catch (Exception e) {
 			return "redirect:/products";
