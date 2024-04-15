@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+import hcmute.vn.springonetomany.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,6 @@ import hcmute.vn.springonetomany.Model.ProductReport;
 import hcmute.vn.springonetomany.Model.ProfitReportByDay;
 import hcmute.vn.springonetomany.Model.ProfitReportByMonth;
 import hcmute.vn.springonetomany.Model.ProfitReportByYear;
-import hcmute.vn.springonetomany.Service.OrderService;
 
 @Controller
 @RequestMapping("/admin/report")
@@ -49,7 +49,7 @@ public class AdminReportController {
 		String monthString = monthStringOptional.orElse("2023-12"); 
 		String yearString = yearStringOptional.orElse("1900");
 		String reportCategory = reportCategoryOptional.orElse("Product");
-		if (monthString == "") {
+		if (monthString.isEmpty()) {
 			monthString = "1900-01";
 		}
 		if (yearString == "") {
