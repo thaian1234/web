@@ -51,6 +51,7 @@
                             </span>
 						</div>
 					</div>
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 				</form>
 			</div>
 			<div class="col-lg-3 col-6 text-right" sec:authorize="isAuthenticated()">
@@ -106,6 +107,7 @@
 								<div>
 									<form th:action="@{/logout}" method="post">
 										<button type="submit" class="dropdown-item text-danger">Đăng xuất</button>
+										<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 									</form>
 								</div>
 							</div>

@@ -67,9 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutSuccessUrl("/?logout=true")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
-                .permitAll()
-                .and()
-                .csrf().disable();
+                .permitAll();
     }
     @Autowired
     private CustomOAuth2UserService oauth2UserService;
