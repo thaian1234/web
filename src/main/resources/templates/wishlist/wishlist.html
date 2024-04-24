@@ -91,6 +91,9 @@
 															<button type="submit"
 																class="btn btn-primary btn-lg-5 rounded-bottom">Add to
 																cart</button>
+															<input type="hidden"
+															       th:name="${_csrf.parameterName}"
+															       th:value="${_csrf.token}" />
 														</form>
 													</div>
 												</div>

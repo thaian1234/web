@@ -305,6 +305,9 @@
 			</div>
 		</div>
 		<!-- Checkout End -->
+		<input type="hidden"
+		       th:name="${_csrf.parameterName}"
+		       th:value="${_csrf.token}" />
 	</form>
 
 
