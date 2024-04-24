@@ -52,6 +52,9 @@
                             </span>
 						</div>
 					</div>
+					<input type="hidden"
+					       th:name="${_csrf.parameterName}"
+					       th:value="${_csrf.token}" />
 				</form>
 			</div>
 			<div class="col-lg-3 col-6 text-right" sec:authorize="isAuthenticated()">
