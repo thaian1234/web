@@ -74,8 +74,9 @@
                             </span>
                         </div>
                     </div>
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-
+                    <input type="hidden"
+                           th:name="${_csrf.parameterName}"
+                           th:value="${_csrf.token}" />
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right">
@@ -407,7 +408,6 @@
                             <div>
                                 <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
                             </div>
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                         </form>
                     </div>
                 </div>

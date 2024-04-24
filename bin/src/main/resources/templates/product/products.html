@@ -63,6 +63,9 @@
 							<label class="custom-control-label" for="price-5">$400 - $500</label>
 							<span class="badge border font-weight-normal">168</span>
 						</div>
+						<input type="hidden"
+						       th:name="${_csrf.parameterName}"
+						       th:value="${_csrf.token}" />
 					</form>
 				</div>
 				<!-- Price End -->

@@ -87,8 +87,9 @@
 					<div class="text-center">
 						<p>Not a member? <a th:href="@{/register}">Register</a></p>
 					</div>
-					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-
+					<input type="hidden"
+					       th:name="${_csrf.parameterName}"
+					       th:value="${_csrf.token}" />
 				</form>
 			</div>
 		</div>
