@@ -9,8 +9,10 @@
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<meta content="Free HTML Templates" name="keywords">
 	<meta content="Free HTML Templates" name="description">
-	<title layout:title-pattern="$LAYOUT_TITLE"></title>
+	<meta http-equiv="Content-Security-Policy"
+	      content="default-src 'self'; style-src 'self'; script-src 'self'; form-action 'self';">
 
+	<title layout:title-pattern="$LAYOUT_TITLE"></title>
 	<!-- Favicon -->
 	<link th:href="@{/img/favicon.ico}" rel="icon">
 
@@ -45,7 +47,7 @@
 				<form th:action="@{products/search}" method="get">
 					<input type="hidden"
 					       th:name="${_csrf.parameterName}"
-					       th:value="${_csrf.token}" />
+					       th:value="${_csrf.token}"/>
 					<div class="input-group">
 						<input name="page" th:value="1" type="hidden">
 						<input type="text" class="form-control" placeholder="Search for products" name="keyword"
@@ -91,14 +93,17 @@
 					<a th:href="@{/products(page=1)}" class="nav-item nav-link">Products</a>
 					<a th:href="@{/vouchers}" class="nav-item nav-link">Vouchers</a>
 					<a th:href="@{/contact}" class="nav-item nav-link">Contact</a>
-					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}" class="nav-item nav-link">Trang quản trị</a>
+					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}" class="nav-item nav-link">Trang quản
+						trị</a>
 				</div>
 				<div class="navbar-nav py-0 px-3 mr-5">
 					<div class="d-flex align-items-center" sec:authorize="isAuthenticated()">
 						<div class="nav-item dropdown d-flex justify-content-center align-items-center">
-							<img th:if="${session.user.getAuthProvider().name() == 'DATABASE'}" th:src="${session.user.getPhotosImagePath()}" class="rounded-circle mx-2" alt=""
+							<img th:if="${session.user.getAuthProvider().name() == 'DATABASE'}"
+							     th:src="${session.user.getPhotosImagePath()}" class="rounded-circle mx-2" alt=""
 							     width="50" height="50">
-							<img th:unless="${session.user.getAuthProvider().name() == 'DATABASE'}" th:src="@{${session.user.getPhotos()}}" class="rounded-circle mx-2" alt=""
+							<img th:unless="${session.user.getAuthProvider().name() == 'DATABASE'}"
+							     th:src="@{${session.user.getPhotos()}}" class="rounded-circle mx-2" alt=""
 							     width="50" height="50">
 
 							<a class="nav-link dropdown-toggle" data-toggle="dropdown"
@@ -110,17 +115,17 @@
 										<button type="submit" class="dropdown-item text-danger">Đăng xuất</button>
 										<input type="hidden"
 										       th:name="${_csrf.parameterName}"
-										       th:value="${_csrf.token}" />
+										       th:value="${_csrf.token}"/>
 									</form>
 								</div>
 							</div>
 						</div>
-<!--						<a th:href="@{/account}" class="m-0" th:text="${session.user.getFullName()}"></a>-->
+						<!--						<a th:href="@{/account}" class="m-0" th:text="${session.user.getFullName()}"></a>-->
 
-<!--						<form th:action="@{/logout}" method="post" class="nav-item nav-link">-->
-<!--							<button type="submit" class="btn-outline-primary bg-transparent rounded-pill p-2">Logout-->
-<!--							</button>-->
-<!--						</form>-->
+						<!--						<form th:action="@{/logout}" method="post" class="nav-item nav-link">-->
+						<!--							<button type="submit" class="btn-outline-primary bg-transparent rounded-pill p-2">Logout-->
+						<!--							</button>-->
+						<!--						</form>-->
 					</div>
 					<a th:href="@{/login}" sec:authorize="isAnonymous()" class="nav-item nav-link">Login</a>
 					<a th:href="@{/register}" sec:authorize="isAnonymous()" class="nav-item nav-link">Register</a>
@@ -136,8 +141,8 @@
 	</section>
 
 
-<!-- trong -->
-<style>
+	<!-- trong -->
+	<style>
         .chat-container {
             position: fixed;
             bottom: 10px;
@@ -152,7 +157,7 @@
             cursor: pointer; /* Chuyển đổi con trỏ khi rê chuột qua biểu tượng chat */
         }
 
-       .chat-window {
+        .chat-window {
             display: none;
             position: fixed;
             bottom: 50px;
@@ -165,7 +170,7 @@
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             overflow: auto;
-             z-index: 9999; /* Đặt z-index lớn để cửa sổ chat nằm phía trên tất cả */
+            z-index: 9999; /* Đặt z-index lớn để cửa sổ chat nằm phía trên tất cả */
         }
 
         .chat-content {
@@ -179,7 +184,7 @@
             font-size: larger;
         }
 
-       .start-chat-button {
+        .start-chat-button {
             background-color: #3498db;
             color: #fff;
             padding: 5px 10px;
@@ -187,38 +192,38 @@
             cursor: pointer;
             margin-top: 10px; /* Khoảng trống giữa dòng chào mừng và nút "Bắt đầu chat" */
         }
-    </style>
- <div class="chat-container">
-        <div class="chat-icon" onclick="toggleChatWindow()">
-            <img th:src="@{/img/messenger.jpg}" alt="Chat Icon">
-        </div>
-    </div>
+	</style>
+	<div class="chat-container">
+		<div class="chat-icon" onclick="toggleChatWindow()">
+			<img th:src="@{/img/messenger.jpg}" alt="Chat Icon">
+		</div>
+	</div>
 
-    <div class="chat-window" id="chatWindow">
-        <!-- Nội dung cửa sổ chat sẽ được thêm vào đây -->
-        <div id="chatContent" class="chat-content">
-            <p class="bold-text">Chat với Shopper</p>
-            <div>
-                <strong>Shopper Support:</strong> Xin chào! Chúng tôi có thể giúp gì cho bạn?
-            </div>
-            <div style="margin-top: 10px;"> <!-- Khoảng trống giữa dòng chào mừng và nút "Bắt đầu chat" -->
-                <button class="start-chat-button" onclick="startChat()">Bắt đầu chat</button>
-            </div>
-            <!-- Các tin nhắn và nội dung chat khác sẽ được thêm vào đây -->
-        </div>
-    </div>
+	<div class="chat-window" id="chatWindow">
+		<!-- Nội dung cửa sổ chat sẽ được thêm vào đây -->
+		<div id="chatContent" class="chat-content">
+			<p class="bold-text">Chat với Shopper</p>
+			<div>
+				<strong>Shopper Support:</strong> Xin chào! Chúng tôi có thể giúp gì cho bạn?
+			</div>
+			<div style="margin-top: 10px;"> <!-- Khoảng trống giữa dòng chào mừng và nút "Bắt đầu chat" -->
+				<button class="start-chat-button" onclick="startChat()">Bắt đầu chat</button>
+			</div>
+			<!-- Các tin nhắn và nội dung chat khác sẽ được thêm vào đây -->
+		</div>
+	</div>
 
-    <script>
+	<script>
         function toggleChatWindow() {
             var chatWindow = document.getElementById('chatWindow');
             chatWindow.style.display = (chatWindow.style.display === 'none' || chatWindow.style.display === '') ? 'block' : 'none';
         }
 
-       function startChat() {
+        function startChat() {
             // Chuyển hướng người dùng đến đường link m.me/182061121658935
             window.location.href = 'https://m.me/182061121658935';
         }
-    </script>
+	</script>
 
 	<!-- trong -->
 
@@ -246,7 +251,9 @@
 								Shop</a>
 							<a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop
 								Detail</a>
-							<a sec:authorize="isAuthenticated()" class="text-dark mb-2" th:href="@{/cart/{cartId}(cartId=${session.user.getCart().getId()})}"><i class="fa fa-angle-right mr-2"></i>Shopping
+							<a sec:authorize="isAuthenticated()" class="text-dark mb-2"
+							   th:href="@{/cart/{cartId}(cartId=${session.user.getCart().getId()})}"><i
+									class="fa fa-angle-right mr-2"></i>Shopping
 								Cart</a>
 							<a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
 							<a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact
@@ -283,11 +290,11 @@
 							<!-- trong -->
 
 							<style>
-								.btn-primary {
+                                .btn-primary {
 
-									  bottom: 60px;
-									  right: 20px;
-									}
+                                    bottom: 60px;
+                                    right: 20px;
+                                }
 							</style>
 
 							<!-- trong -->
@@ -297,7 +304,7 @@
 							</div>
 							<input type="hidden"
 							       th:name="${_csrf.parameterName}"
-							       th:value="${_csrf.token}" />
+							       th:value="${_csrf.token}"/>
 						</form>
 					</div>
 				</div>
@@ -326,8 +333,8 @@
 
 
 	<!-- JavaScript Libraries -->
-<!--	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
-<!--	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>-->
+	<!--	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
+	<!--	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>-->
 	<script src="webjars/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 	<script src="webjars/jquery/3.6.4/jquery.min.js"></script>
 	<script th:src="@{lib/easing/easing.min.js}"></script>
