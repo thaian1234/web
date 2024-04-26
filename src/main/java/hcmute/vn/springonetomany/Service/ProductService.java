@@ -32,17 +32,20 @@ public class ProductService {
     public Page<Product> findPage(int pageNumber, String sortField, String sortDir) {
     	Sort sort = Sort.by(sortField).ascending();
     	sort = sortDir.equals("asc")? sort.ascending() : sort.descending();
-    	
+    	pageNumber = pageNumber == 0 ? 1 : pageNumber;
         Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE, sort);
         return productRepository.findAll(pageable);
     }
 
     public Page<Product> getProductsByCategory_Id(int category_id, int pageNumber) {
+        pageNumber = pageNumber == 0 ? 1 : pageNumber;
         Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE);
         return productRepository.getProductsByCategory_Id(category_id, pageable);
     }
 
     public Page<Product> searchProducts(String keyword, int pageNumber) {
+        pageNumber = pageNumber == 0 ? 1 : pageNumber;
+
         Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE);
         return productRepository.getProductsByKeyword(keyword, pageable);
     }

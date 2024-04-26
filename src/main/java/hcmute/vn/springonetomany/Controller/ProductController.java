@@ -36,41 +36,42 @@ public class ProductController {
     //edit
     @Autowired
     private CategoryService categoryService;
+
     //edit
     @GetMapping("")
     public String getOnePage(Model model,
-                             @RequestParam(required = false, defaultValue = "1") int page, 
-                             @RequestParam(required = false, defaultValue = "name") String sortField, 
+                             @RequestParam(required = false, defaultValue = "1") int page,
+                             @RequestParam(required = false, defaultValue = "name") String sortField,
                              @RequestParam(required = false, defaultValue = "asc") String sortDir,
                              HttpSession session) {
         Page<Product> productPage = productService.findPage(page, sortField, sortDir);
         List<Product> productList = productPage.getContent();
-        
+
         List<Category> listCategories = categoryService.listAll();
-        
-        
+
+
         int totalPages = productPage.getTotalPages();
         long totalItems = productPage.getTotalElements();
 
         model.addAttribute("productList", productList);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
-        
+
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
-      
+
         String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
         model.addAttribute("reverseSortDir", reverseSortDir);
-        
+
         model.addAttribute("listCategories", listCategories);
         return "product/products";
     }
 
     @GetMapping(path = {"/search"})
-    public String searchProducts(Model model, @RequestParam(required = false, defaultValue = "") String keyword, @RequestParam int page) {
+    public String searchProducts(Model model, @RequestParam(required = false, defaultValue = "") String keyword, @RequestParam(required = false) int page) {
         List<Product> productList = null;
 
-        if (keyword != null) {
+        if (keyword != null && page != 0) {
             Page<Product> productPage = productService.searchProducts(keyword, page);
             productList = productPage.getContent();
             int totalPages = productPage.getTotalPages();
@@ -113,10 +114,10 @@ public class ProductController {
             int numberOfRating = 0;
             int ratingPoint = 0;
             if (!product.getRatings().isEmpty()) {
-            	numberOfRating = product.getRatings().size();
+                numberOfRating = product.getRatings().size();
                 ratingPoint = product.getRatingPoint();
             }
-            Optional<Category> optionalCategory  = categoryService.getCategory(product.getCategory().getId());
+            Optional<Category> optionalCategory = categoryService.getCategory(product.getCategory().getId());
             if (optionalCategory.isPresent()) {
                 Category currentCategory = optionalCategory.get();
                 Set<Product> categoryProducts = currentCategory.getProducts();
@@ -134,11 +135,11 @@ public class ProductController {
             model.addAttribute("totalPages", totalPages);
             model.addAttribute("totalItems", totalItems);
             model.addAttribute("currentPage", reviewPage);
-            
+
         } catch (Exception e) {
             return "redirect:/products";
         }
         return "detail";
     }
-    
+
 }

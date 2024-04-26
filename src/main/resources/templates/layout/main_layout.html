@@ -11,8 +11,10 @@
 	<meta content="Free HTML Templates" name="description">
 	<meta http-equiv="Content-Security-Policy"
 	      content="default-src 'self'; style-src 'self'; script-src 'self'; form-action 'self';">
-
+<!--	<meta content="text/html; charset=UTF-8; X-Content-Type-Options=nosniff" http-equiv="Content-Type" />-->
+<!--	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
 	<title layout:title-pattern="$LAYOUT_TITLE"></title>
+
 	<!-- Favicon -->
 	<link th:href="@{/img/favicon.ico}" rel="icon">
 
@@ -31,9 +33,11 @@
 	<link th:href="@{/css/style.css}" rel="stylesheet">
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}">
 </head>
+
 <body>
+
 	<!-- Topbar Start -->
 	<div class="container-fluid">
 		<div class="row align-items-center py-3 px-xl-5">
@@ -335,8 +339,9 @@
 	<!-- JavaScript Libraries -->
 	<!--	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>-->
 	<!--	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>-->
-	<script src="webjars/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-	<script src="webjars/jquery/3.6.4/jquery.min.js"></script>
+	<script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+	<script th:src="@{/webjars/jquery/3.6.4/jquery.min.js}"></script>
+
 	<script th:src="@{lib/easing/easing.min.js}"></script>
 	<script th:src="@{lib/owlcarousel/owl.carousel.min.js}"></script>
 	<!-- Contact Javascript File -->
