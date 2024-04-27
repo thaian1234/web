@@ -5,6 +5,7 @@ import hcmute.vn.springonetomany.Custom.CustomUserDetailService;
 import hcmute.vn.springonetomany.Custom.Oauth2.CustomOAuth2UserService;
 import hcmute.vn.springonetomany.Custom.Oauth2.OAuthLoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -72,6 +73,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .permitAll();
         ;
+    }
+
+    @Bean
+    public FilterRegistrationBean<XContentTypeOptionsHeaderFilter> xContentTypeOptionsHeaderFilter() {
+        XContentTypeOptionsHeaderFilter filter = new XContentTypeOptionsHeaderFilter();
+
+        FilterRegistrationBean<XContentTypeOptionsHeaderFilter> registration = new FilterRegistrationBean<>(filter);
+
+        registration.addUrlPatterns("/*"); // Add the URL patterns you want to apply the filter
+
+        return registration;
     }
 
     @Autowired
