@@ -1,11 +1,15 @@
 package hcmute.vn.springonetomany.Config;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.mvc.WebContentInterceptor;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
@@ -17,7 +21,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         exposeDirectory("user_photos", registry);
         exposeDirectory("rating_images", registry);
         exposeDirectory("product_images", registry);
-        
+
     }
 
     private void exposeDirectory(String dirName, ResourceHandlerRegistry registry) {
@@ -26,6 +30,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         if (dirName.startsWith("../")) dirName = dirName.replace("../", "");
 
-        registry.addResourceHandler("/" + dirName + "/**").addResourceLocations("file:/"+ uploadPath + "/");
+        registry.addResourceHandler("/" + dirName + "/**").addResourceLocations("file:/" + uploadPath + "/");
     }
+
+
 }
