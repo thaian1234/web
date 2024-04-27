@@ -6,7 +6,7 @@ import hcmute.vn.springonetomany.Custom.Oauth2.CustomOAuth2User;
 import hcmute.vn.springonetomany.Entities.Category;
 import hcmute.vn.springonetomany.Entities.Product;
 import hcmute.vn.springonetomany.Entities.User;
-import hcmute.vn.springonetomany.ErrorException.NotFoundException;
+
 import hcmute.vn.springonetomany.Service.CategoryService;
 import hcmute.vn.springonetomany.Service.ProductService;
 import hcmute.vn.springonetomany.Service.UserService;
@@ -39,7 +39,7 @@ public class HomeController {
 
     @GetMapping({"/home"})
     public String viewHomePage(Model model, @AuthenticationPrincipal CustomUser loggedUser, HttpSession session) {
-        try {
+
             List<Category> listCategories = categoryService.listAll();
             List<Product> productList = productService.findAll();
 
@@ -65,8 +65,6 @@ public class HomeController {
             model.addAttribute("sortedProducts", sortedProducts);
             model.addAttribute("sortedProductsByCreatedTime", sortedProductsByCreatedTime.subList(0, Math.min(productList.size(), 6)));
             return "index";
-        } catch (NotFoundException ignored) {
-            throw new NotFoundException("Có lỗi trong hệ thống");
-        }
+
     }
 }
