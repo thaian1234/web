@@ -16,6 +16,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.header.HeaderWriter;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
@@ -70,13 +73,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutSuccessUrl("/?logout=true")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
-                .permitAll();
+                .permitAll()
+        ;
         ;
     }
+
 
     @Autowired
     private CustomOAuth2UserService oauth2UserService;
 
     @Autowired
     private OAuthLoginSuccessHandler oauthLoginSuccessHandler;
+
 }
+
